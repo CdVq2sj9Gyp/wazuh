@@ -1,0 +1,43 @@
+TOKEN=$(curl -u wazuh:wazuh -k -X POST "https://localhost:55000/security/user/authenticate?raw=true")
+#
+##
+###
+curl -k -X PUT "https://localhost:55000/agents/upgrade?agents_list=002,003&pretty=true" -H  "Authorization: Bearer $TOKEN"
+curl -k -X GET "https://localhost:55000/agents/outdated?pretty=true" -H  "Authorization: Bearer $TOKEN"
+
+curl -k -X PUT "https://localhost:55000/agents/upgrade?agents_list=004&pretty=true" -H  "Authorization: Bearer $TOKEN"
+curl -k -X GET "https://localhost:55000/agents/upgrade_result?agents_list=004&pretty=true" -H  "Authorization: Bearer $TOKEN"
+#
+curl -k -X GET "https://localhost:55000/agents?agents_list=004&pretty=true&select=version" -H  "Authorization: Bearer $TOKEN"
+#
+##
+###
+curl -k -X GET "https://localhost:55000/agents/outdated?pretty=true" -H  "Authorization: Bearer $TOKEN"
+curl -k -X GET "https://localhost:55000/agents?agents_list=019&pretty=true&select=version" -H  "Authorization: Bearer $TOKEN"
+curl -k -X PUT "https://localhost:55000/agents/upgrade?agents_list=019&pretty=true" -H  "Authorization: Bearer $TOKEN"
+curl -k -X GET "https://localhost:55000/agents/upgrade_result?agents_list=019&pretty=true" -H  "Authorization: Bearer $TOKEN"
+#
+curl -k -X GET "https://localhost:55000/agents?agents_list=019&pretty=true&select=version" -H  "Authorization: Bearer $TOKEN"
+#
+##
+###
+curl -k -X GET "https://localhost:55000/agents/outdated?pretty=true" -H  "Authorization: Bearer $TOKEN"
+curl -k -X GET "https://localhost:55000/agents?agents_list=021,024&pretty=true&select=version" -H  "Authorization: Bearer $TOKEN"
+curl -k -X PUT "https://localhost:55000/agents/upgrade?agents_list=021,024&pretty=true" -H  "Authorization: Bearer $TOKEN"
+curl -k -X GET "https://localhost:55000/agents/upgrade_result?agents_list=021,024&pretty=true" -H  "Authorization: Bearer $TOKEN"
+#
+curl -k -X GET "https://localhost:55000/agents?agents_list=021,024&pretty=true&select=version" -H  "Authorization: Bearer $TOKEN"
+#
+##
+###
+curl -k -X GET "https://localhost:55000/agents/outdated?pretty=true" -H  "Authorization: Bearer $TOKEN"
+curl -k -X GET "https://localhost:55000/agents?agents_list=022,026&pretty=true&select=version" -H  "Authorization: Bearer $TOKEN"
+curl -k -X PUT "https://localhost:55000/agents/upgrade?agents_list=022,026&pretty=true" -H  "Authorization: Bearer $TOKEN"
+curl -k -X GET "https://localhost:55000/agents/upgrade_result?agents_list=022,026&pretty=true" -H  "Authorization: Bearer $TOKEN"
+#
+curl -k -X GET "https://localhost:55000/agents?agents_list=022,026&pretty=true&select=version" -H  "Authorization: Bearer $TOKEN"
+#
+##
+###
+####
+curl -k -X DELETE "https://localhost:55000/agents?pretty=true&older_than=21d&agents_list=all&status=never_connected,disconnected" -H  "Authorization: Bearer $TOKEN"
