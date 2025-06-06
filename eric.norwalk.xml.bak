@@ -1,0 +1,3265 @@
+<!-- Modify it at your will. -->
+<!--
+/var/ossec/ruleset/rules/0080-sonicwall_rules.xml
+/var/ossec/ruleset/decoders/0295-sonicwall_decoers.xml
+-->
+<group name="syslog,sonicwall,">
+    <rule id="4800" level="0">
+      <decoded_as>sonicwall</decoded_as>
+      <description>SonicWall messages grouped.</description>
+    </rule>
+
+     <rule id="4801" level="8">
+      <if_sid>4800</if_sid>
+      <status>^1$</status>
+      <description>SonicWall ALERT message.</description>
+      <group>gpg13_3.2,gdpr_IV_35.7.d,</group>
+    </rule>
+     
+     <rule id="4802" level="8">
+       <if_sid>4800</if_sid>
+       <status>^2$</status>
+       <description>SonicWall CRITICAL message.</description>
+       <group>gpg13_3.2,gdpr_IV_35.7.d,</group>
+     </rule>
+
+    <rule id="4803" level="4">
+       <if_sid>4800</if_sid>
+       <status>^3$</status>
+       <description>SonicWall Error message.</description>
+       <group>gpg13_3.5,</group>
+     </rule>
+
+     <rule id="4804" level="3">
+       <if_sid>4800</if_sid>
+       <status>^4$</status>
+       <description>SonicWall Warning message.</description>
+     </rule>
+
+     <rule id="4805" level="0">
+       <if_sid>4800</if_sid>
+       <status>^5$</status>
+       <description>SonicWall Notice message.</description>
+     </rule>
+
+    <rule id="4806" level="0">
+      <if_sid>4800</if_sid>
+      <status>^6$</status>
+      <description>SonicWall Informational message.</description>
+    </rule>
+    
+    <rule id="4807" level="0">
+      <if_sid>4800</if_sid>
+      <status>^7$</status>
+      <description>SonicWall debug message.</description>
+    </rule>
+
+    <rule id="4810" level="3">
+      <if_sid>4806</if_sid>
+      <id>^236$</id>
+      <description>SonicWall: Firewall administrator login.</description>
+      <mitre>
+        <id>T1078$</id>
+      </mitre>
+      <group>authentication_success,pci_dss_10.2.5,gpg13_3.6,gdpr_IV_32.2,hipaa_164.312.b,nist_800_53_AU.14,nist_800_53_AC.7,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
+    </rule>
+    
+    <rule id="708004" level="10">
+      <if_sid>4801</if_sid>
+      <field name="eventid">^4$</field>
+      <description>SonicWall: Network Security Appliance activated.</description>
+    </rule>
+    
+    <rule id="708005" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^5$</field>
+      <description>SonicWall: Log Cleared.</description>
+    </rule>
+    
+    <rule id="708006" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^6$</field>
+      <description>SonicWall: Log successfully sent via E-mail.</description>
+    </rule>
+    
+    <rule id="708007" level="10">
+      <if_sid>4803</if_sid>
+      <field name="eventid">^10$</field>
+      <description>SonicWall: Problem loading the URL List; check Filter settings.</description>
+    </rule>
+    
+    <rule id="708008" level="10">
+      <if_sid>4803</if_sid>
+      <field name="eventid">^12$</field>
+      <description>SonicWall: Problem sending log E-mail; check log settings.</description>
+    </rule>
+    
+    <rule id="708009" level="5">
+      <if_sid>4803</if_sid>
+      <field name="eventid">^14$</field>
+      <description>SonicWall: Web site access denied.</description>
+    </rule>
+    
+    <rule id="708010" level="10">
+      <if_sid>4805</if_sid>
+      <field name="eventid">^16$</field>
+      <description>SonicWall: Web site access allowed.</description>
+    </rule>
+    
+    <!-- 708011 -->
+    
+    <rule id="708012" level="10">
+      <if_sid>4801</if_sid>
+      <field name="eventid">^22$</field>
+      <description>SonicWall: Ping of death dropped.</description>
+    </rule>
+    
+    <rule id="708013" level="10">
+      <if_sid>4801</if_sid>
+      <field name="eventid">^23$</field>
+      <description>SonicWall: IP spoof dropped.</description>
+    </rule>
+    
+    <rule id="708014" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^24$</field>
+      <description>SonicWall: User logged out - user disconnect detected.</description>
+    </rule>
+    
+    <rule id="708015" level="10">
+      <if_sid>4804</if_sid>
+      <field name="eventid">^25$</field>
+      <description>SonicWall: Possible SYN flood attack detected.</description>
+    </rule>
+    
+    <rule id="708016" level="10">
+      <if_sid>4801</if_sid>
+      <field name="eventid">^27$</field>
+      <description>SonicWall: Land attack dropped.</description>
+    </rule>
+    
+    <rule id="708017" level="10">
+      <if_sid>4805</if_sid>
+      <field name="eventid">^28$</field>
+      <description>SonicWall: Fragmented packet dropped.</description>
+    </rule>
+    
+    <rule id="708018" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^29$</field>
+      <description>SonicWall: Administrator login allowed.</description>
+    </rule>
+    
+    <rule id="708019" level="10">
+      <if_sid>4801</if_sid>
+      <field name="eventid">^30$</field>
+      <description>SonicWall: Administrator login denied due to bad credentials.</description>
+    </rule>
+    
+    <rule id="708020" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^31$</field>
+      <description>SonicWall: User login from an internal zone allowed.</description>
+    </rule>
+    
+    <rule id="708021" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^32$</field>
+      <description>SonicWall: User login denied due to bad credentials.</description>
+      <group>users,authentication-access,user-activity,info,wrong-user-password</group>
+    </rule>
+    
+    <rule id="708022" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^33$</field>
+      <srcip negate="yes">80.94.95.151</srcip>
+      <description>SonicWall: User login denied due to bad credentials.</description>
+      <options>no_email_alert</options>
+    </rule>
+
+    <rule id="709459" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^33$</field>
+      <srcip>80.94.95.151</srcip>
+      <description>SonicWall: User login denied due to bad credentials.  Known malicious Hill Top IP.</description>
+      <group>users,authentication-access,user-activity,info,unknown-user-logon-attempt</group>
+      <options>no_email_alert</options>
+    </rule>
+    
+    <rule id="708011" level="3">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^34$</field>
+      <srcip>141.98.81.31</srcip>
+      <options>no_email_alert</options>
+      <options>no_full_log</options>
+      <description>SonicWall: Pending login timed out.</description>
+    </rule>
+    
+    
+    <rule id="708023" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^34$</field>
+      <options>no_email_alert</options>
+      <description>SonicWall: Pending login timed out.</description>
+    </rule>
+    
+    <rule id="708024" level="10">
+      <if_sid>4801</if_sid>
+      <field name="eventid">35</field>
+      <description>SonicWall: Administrator login denied from %s; logins disabled from this interface.</description>
+    </rule>
+    
+    <rule id="708025" level="10">
+      <if_sid>4805</if_sid>
+      <field name="eventid">36</field>
+      <description>SonicWall: TCP connection dropped.</description>
+    </rule>
+    
+    <rule id="708026" level="10">
+      <if_sid>4805</if_sid>
+      <field name="eventid">37</field>
+      <description>SonicWall: UDP packet dropped.</description>
+    </rule>
+    
+    <rule id="708027" level="10">
+      <if_sid>4805</if_sid>
+      <field name="eventid">38</field>
+      <description>SonicWall: ICMP packet dropped due to Policy.</description>
+    </rule>
+    
+    <rule id="708028" level="10">
+      <if_sid>4805</if_sid>
+      <field name="eventid">41</field>
+      <description>SonicWall: Unknown protocol dropped.</description>
+    </rule>
+    
+    <rule id="708029" level="10">
+      <if_sid>4807</if_sid>
+      <field name="eventid">^43$</field>
+      <description>SonicWall: IPsec connection interrupt.</description>
+      <group>vpn</group>
+    </rule>
+    
+    <rule id="708030" level="10">
+      <if_sid>4807</if_sid>
+      <field name="eventid">45</field>
+      <description>SonicWall: ARP Timeout.</description>
+    </rule>
+    
+    <rule id="708031" level="10">
+      <if_sid>4807</if_sid>
+      <field name="eventid">46</field>
+      <description>SonicWall: Broadcast packet dropped.</description>
+    </rule>
+    
+    <rule id="708032" level="10">
+      <if_sid>4807</if_sid>
+      <field name="eventid">48</field>
+      <description>SonicWall: Out-of-order command packet dropped.</description>
+    </rule>
+    
+    <rule id="708033" level="10">
+      <if_sid>4803</if_sid>
+      <field name="eventid">^53$</field>
+      <description>SonicWall: The cache is full; %s open connections; some will be dropped.</description>
+    </rule>
+    
+    <rule id="708034" level="10">
+      <if_sid>4803</if_sid>
+      <field name="eventid">58</field>
+      <description>SonicWall: License exceeded: Connection dropped because too many IP addresses are in use on your LAN.</description>
+    </rule>
+    
+    <rule id="708035" level="10">
+      <if_sid>4803</if_sid>
+      <field name="eventid">^61$</field>
+      <description>SonicWall: Out of Memory: Diagnostic Code E.</description>
+      <group>vpn</group>
+    </rule>
+    
+    <rule id="708036" level="10">
+      <if_sid>4807</if_sid>
+      <field name="eventid">63</field>
+      <description>SonicWall: Received fragmented packet or fragmentation needed.</description>
+    </rule>
+    
+    <rule id="708037" level="10">
+      <if_sid>4807</if_sid>
+      <field name="eventid">^65$</field>
+      <description>SonicWall: Illegal IPsec SPI.</description>
+      <group>vpn</group>
+    </rule>
+    
+    <rule id="708038" level="10">
+      <if_sid>4803</if_sid>
+      <field name="eventid">^67$</field>
+      <description>SonicWall: IPsec Authentication Failed.</description>
+      <group>vpn</group>
+    </rule>
+    
+    <rule id="708039" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^69$</field>
+      <description>SonicWall: Incompatible IPsec Security Association.</description>
+      <group>vpn</group>
+    </rule>
+    
+    <rule id="708040" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^70$</field>
+      <description>SonicWall: IPsec packet from or to an illegal host.</description>
+      <group>vpn</group>
+    </rule>
+    
+    <rule id="708041" level="10">
+      <if_sid>4801</if_sid>
+      <field name="eventid">81</field>
+      <description>SonicWall: Smurf Amplification attack dropped.</description>
+    </rule>
+
+    <rule id="708042" level="8">
+      <if_sid>4801</if_sid>
+      <field name="eventid">82</field>
+      <!-- <field name="eventid">82</field> -->
+      <description>SonicWall: Possible port scan detected.</description>
+      <group>port_scan</group>
+      <!-- <options>alert_by_email</options> -->
+    </rule>
+
+    <rule id="708043" level="8">
+      <if_sid>4801</if_sid>
+      <field name="eventid">83</field>
+      <!-- <field name="eventid">83</field> -->
+      <description>SonicWall: Probable port scan detected.</description>
+      <group>port_scan</group>
+      <!-- <options>alert_by_email</options> -->
+    </rule>
+    
+    <rule id="708044" level="10">
+      <if_sid>4805</if_sid>
+      <field name="eventid">84</field>
+      <description>SonicWall: Failed to resolve name.</description>
+    </rule>
+    
+    <rule id="708045" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^87$</field>
+      <description>SonicWall: IKE Responder: Accepting IPsec proposal (Phase 2).</description>
+      <group>vpn</group>
+    </rule>
+    
+    <rule id="708046" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^88$</field>
+      <description>SonicWall: IKE Responder: IPsec proposal does not match (Phase 2).</description>
+      <group>vpn</group>
+    </rule>
+    
+    <!-- rule 708047 used for a duplicate for event id 262 to identify WesternNRG's IP address -->
+  
+    <rule id="708048" level="10">
+      <if_sid>4804</if_sid>
+      <field name="eventid">^89$</field>
+      <description>SonicWall: IKE Responder: IKE negotiation complete. Adding IPsec SA. (Phase 2).</description>
+      <group>vpn</group>
+    </rule>
+    
+    <rule id="708049" level="10">
+      <if_sid>4803</if_sid>
+      <field name="eventid">^93$</field>
+      <description>SonicWall: Suspend Reboot: Diagnostic Code A.</description>
+    </rule>
+    
+    <rule id="708050" level="10">
+      <if_sid>4803</if_sid>
+      <field name="eventid">^94$</field>
+      <description>SonicWall: Deadlock Reboot: Diagnostic Code B.</description>
+    </rule>
+    
+    <rule id="708051" level="10">
+      <if_sid>4803</if_sid>
+      <field name="eventid">^95$</field>
+      <description>SonicWall: Low Memory Reboot: Diagnostic Code C.</description>
+    </rule>
+    
+    <rule id="708052" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^96$</field>
+      <description>SonicWall: GMS Heartbeat: Status.</description>
+    </rule>
+    
+    <rule id="708053" level="3">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^97$</field>
+      <description>SonicWall: Web site hit.</description>
+    </rule>
+    
+    <rule id="708054" level="3">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^98$</field>
+      <!-- <field name="eventid">98</field> -->
+      <description>SonicWall: Connection Opened.</description>
+      <group>connection_state</group>
+    </rule>
+    
+    <rule id="708055" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^99$</field>
+      <description>SonicWall: Retransmitting DHCP DISCOVER.</description>
+    </rule>
+    
+    <rule id="708056" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">100</field>
+      <description>SonicWall: Retransmitting DHCP Request (Requesting).</description>
+    </rule>
+    
+    <rule id="708057" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">101</field>
+      <description>SonicWall: Retransmitting DHCP Request (Renewing).</description>
+    </rule>
+    
+    <rule id="708058" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">102</field>
+      <description>SonicWall: Retransmitting DHCP Request (Rebinding).</description>
+    </rule>
+    
+    <rule id="708059" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">103</field>
+      <description>SonicWall: Retransmitting DHCP Request (Rebooting).</description>
+    </rule>
+    
+    <rule id="708060" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">104</field>
+      <description>SonicWall: Retransmitting DHCP Request (Verifying).</description>
+    </rule>
+    
+    <rule id="708061" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">105</field>
+      <description>SonicWall: Sending DHCP DISCOVER.</description>
+    </rule>
+    
+    <rule id="708062" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">106</field>
+      <description>SonicWall: DHCP Server not available. Did not get any DHCP OFFER.</description>
+    </rule>
+    
+    <rule id="708063" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^107$</field>
+      <description>SonicWall: Got DHCP OFFER. Selecting.</description>
+    </rule>
+    
+    <rule id="708064" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">108</field>
+      <description>SonicWall: Sending DHCP Request.</description>
+    </rule>
+    
+    <rule id="708065" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">109</field>
+      <description>SonicWall: DHCP Client did not get DHCP ACK.</description>
+    </rule>
+    
+    <rule id="708066" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^110$</field>
+      <description>SonicWall: DHCP Client got NACK.</description>
+    </rule>
+    
+    <rule id="708067" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^111$</field>
+      <description>SonicWall: DHCP Client got ACK from server.</description>
+    </rule>
+    
+    <rule id="708068" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">112</field>
+      <description>SonicWall: DHCP Client is declining address offered by the server.</description>
+    </rule>
+    
+    <rule id="708069" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">113</field>
+      <description>SonicWall: DHCP Client sending Request and going to REBIND state.</description>
+    </rule>
+    
+    <rule id="708070" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">114</field>
+      <description>SonicWall: DHCP Client sending Request and going to RENEW state.</description>
+    </rule>
+    
+    <rule id="708071" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">115</field>
+      <description>SonicWall: Sending DHCP Request (Renewing).</description>
+    </rule>
+    
+    <rule id="708072" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">116</field>
+      <description>SonicWall: Sending DHCP Request (Rebinding).</description>
+    </rule>
+    
+    <rule id="708073" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">117</field>
+      <description>SonicWall: Sending DHCP Request (Rebooting).</description>
+    </rule>
+    
+    <rule id="708074" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">118</field>
+      <description>SonicWall: Sending DHCP Request (Verifying).</description>
+    </rule>
+    
+    <rule id="708075" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">119</field>
+      <description>SonicWall: DHCP Client failed to verify and lease has expired. Go to INIT state.</description>
+    </rule>
+    
+    <rule id="708076" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">121</field>
+      <description>SonicWall: DHCP Client got a new IP address lease.</description>
+    </rule>
+    
+    <rule id="708077" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^122$</field>
+      <description>SonicWall: Sending DHCP RELEASE.</description>
+    </rule>
+    
+    <rule id="708078" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">123</field>
+      <description>SonicWall: Access attempt from host without Anti-Virus agent installed.</description>
+    </rule>
+    
+    <rule id="708079" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">124</field>
+      <description>SonicWall: Anti-Virus agent out-of-date on host.</description>
+    </rule>
+    
+    <rule id="708080" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">124</field>
+      <description>SonicWall: Anti-Virus agent out-of-date on host.</description>
+    </rule>
+    
+    <rule id="708081" level="10">
+      <if_sid>4804</if_sid>
+      <field name="eventid">125</field>
+      <description>SonicWall: Received AV Alert: %s.</description>
+    </rule>
+    
+    <rule id="708082" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">127</field>
+      <description>SonicWall: Starting PPPoE discovery.</description>
+    </rule>
+    
+    <rule id="708083" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">128</field>
+      <description>SonicWall: PPPoE LCP Link Up.</description>
+    </rule>
+    
+    <rule id="708084" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">129</field>
+      <description>SonicWall: PPPoE LCP Link Down.</description>
+    </rule>
+    
+    <rule id="708085" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^130$</field>
+      <description>SonicWall: PPPoE terminated.</description>
+    </rule>
+    
+    <rule id="708086" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^131$</field>
+      <description>SonicWall: PPPoE Network Connected.</description>
+    </rule>
+    
+    <rule id="708087" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^132$</field>
+      <description>SonicWall: PPPoE Network Disconnected.</description>
+    </rule>
+    
+    <rule id="708088" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^133$</field>
+      <description>SonicWall: PPPoE discovery process complete.</description>
+    </rule>
+    
+    <rule id="708089" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^134$</field>
+      <description>SonicWall: PPPoE starting CHAP Authentication.</description>
+    </rule>
+    
+    <rule id="708090" level="10">
+      <if_sid>4804</if_sid>
+      <field name="eventid">^138$</field>
+      <description>SonicWall: Wan IP Changed.</description>
+    </rule>
+    
+    <rule id="708091" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^139$</field>
+      <description>SonicWall: XAUTH Succeeded with VPN %s.</description>
+      <group>vpn</group>
+    </rule>
+    
+    <rule id="708092" level="10">
+      <if_sid>4803</if_sid>
+      <field name="eventid">^140$</field>
+      <description>SonicWall: XAUTH Failed with VPN %s, Authentication failure.</description>
+      <group>vpn</group>
+    </rule>
+    
+    <rule id="708093" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^141$</field>
+      <description>SonicWall: XAUTH Failed with VPN client, Cannot Contact %s Server.</description>
+      <group>vpn</group>
+    </rule>
+    
+    <rule id="708094" level="10">
+      <if_sid>4803</if_sid>
+      <field name="eventid">142</field>
+      <description>SonicWall: Log Debug.</description>
+    </rule>
+    
+    <rule id="708095" level="10">
+      <if_sid>4801</if_sid>
+      <field name="eventid">144</field>
+      <description>SonicWall: HA Active Primary: Primary firewall has transitioned to Active.</description>
+    </rule>
+    
+    <rule id="708096" level="10">
+      <if_sid>4801</if_sid>
+      <field name="eventid">145</field>
+      <description>SonicWall: HA Active Secondary: Secondary firewall has transitioned to Active.</description>
+    </rule>
+    
+    <rule id="708097" level="10">
+      <if_sid>4801</if_sid>
+      <field name="eventid">146</field>
+      <description>SonicWall: HA Standby Primary: Primary firewall has transitioned to Standby.</description>
+    </rule>
+    
+    <rule id="708098" level="10">
+      <if_sid>4801</if_sid>
+      <field name="eventid">147</field>
+      <description>SonicWall: HA Standby Secondary: Secondary firewall has transitioned to Standby.</description>
+    </rule>
+    
+    <rule id="708099" level="10">
+      <if_sid>4803</if_sid>
+      <field name="eventid">148</field>
+      <description>SonicWall: HA Primary Missed Heartbeat: Primary missed heartbeats from Secondary.</description>
+    </rule>
+    
+    <rule id="708100" level="10">
+      <if_sid>4803</if_sid>
+      <field name="eventid">149</field>
+      <description>SonicWall: HA Secondary Missed Heartbeat: Secondary missed heartbeats from Primary.</description>
+    </rule>
+    
+    <rule id="708101" level="10">
+      <if_sid>4803</if_sid>
+      <field name="eventid">150</field>
+      <description>SonicWall: HA Primary Error Receive: Primary received error signal from Secondary.</description>
+    </rule>
+    
+    <rule id="708102" level="10">
+      <if_sid>4803</if_sid>
+      <field name="eventid">151</field>
+      <description>SonicWall: HA Secondary Error Receive: Secondary received error signal from Primary.</description>
+    </rule>
+    
+    <rule id="708103" level="10">
+      <if_sid>4803</if_sid>
+      <field name="eventid">153</field>
+      <description>SonicWall: HA Primary Preempt: Primary firewall preempting Secondary.</description>
+    </rule>
+    
+    <rule id="708104" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^157$</field>
+      <description>SonicWall: HA Sync HA Peer: HA Peer Firewall Synchronized.</description>
+    </rule>
+    
+    <rule id="708105" level="10">
+      <if_sid>4803</if_sid>
+      <field name="eventid">158</field>
+      <description>SonicWall: HA Sync Error: Error synchronizing HA peer firewall (%s).</description>
+    </rule>
+    
+    <rule id="708106" level="10">
+      <if_sid>4804</if_sid>
+      <field name="eventid">159</field>
+      <description>SonicWall: Received AV Alert: Your Network Anti-Virus subscription has expired. %s.</description>
+    </rule>
+    
+    <rule id="708107" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">162</field>
+      <description>SonicWall: Received AV Alert: Your Network Anti-Virus subscription has expired. %s.</description>
+    </rule>
+    
+    <rule id="708108" level="10">
+      <if_sid>4803</if_sid>
+      <field name="eventid">164</field>
+      <description>SonicWall: Diagnostic Code F.</description>
+    </rule>
+
+    <rule id="708109" level="10">
+      <if_sid>4801</if_sid>
+      <field name="eventid">165</field>
+      <description>SonicWall: Forbidden E-Mail attachment disabled.</description>
+    </rule>
+    
+    <rule id="708110" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">168</field>
+      <description>SonicWall: Disconnecting PPPoE due to traffic Timeout.</description>
+    </rule>
+    
+    <rule id="708111" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">168</field>
+      <description>SonicWall: Disconnecting PPPoE due to traffic Timeout.</description>
+    </rule>
+    
+    <rule id="708112" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">169</field>
+      <description>SonicWall: No response from ISP Disconnecting PPPoE..</description>
+    </rule>
+    
+    <rule id="708113" level="10">
+      <if_sid>4803</if_sid>
+      <field name="eventid">170</field>
+      <description>SonicWall: Secondary going Active in preempt mode after reboot.</description>
+    </rule>
+    
+    <rule id="708114" level="10">
+      <if_sid>4807</if_sid>
+      <field name="eventid">^171$</field>
+      <description>SonicWall: %s.</description>
+      <group>vpn</group>
+    </rule>
+    
+    <rule id="708115" level="10">
+      <if_sid>4805</if_sid>
+      <field name="eventid">173</field>
+      <description>SonicWall: TCP connection from LAN denied.</description>
+    </rule>
+    
+    <rule id="708116" level="10">
+      <if_sid>4805</if_sid>
+      <field name="eventid">174</field>
+      <description>SonicWall: UDP packet from LAN dropped.</description>
+    </rule>
+    
+    <rule id="708117" level="10">
+      <if_sid>4805</if_sid>
+      <field name="eventid">175</field>
+      <description>SonicWall: ICMP packet from LAN dropped.</description>
+    </rule>
+    
+    <rule id="708118" level="10">
+      <if_sid>4801</if_sid>
+      <field name="eventid">177</field>
+      <description>SonicWall: Probable TCP FIN scan detected.</description>
+    </rule>
+
+    <rule id="708119" level="10">
+      <if_sid>4801</if_sid>
+      <field name="eventid">178</field>
+      <description>SonicWall: Probable TCP XMAS scan detected.</description>
+    </rule>
+    
+    <rule id="708120" level="10">
+      <if_sid>4801</if_sid>
+      <field name="eventid">179</field>
+      <description>SonicWall: Probable TCP NULL scan detected.</description>
+    </rule>
+    
+    <rule id="708121" level="10">
+      <if_sid>4807</if_sid>
+      <field name="eventid">181</field>
+      <description>SonicWall: TCP FIN packet dropped.</description>
+    </rule>
+    
+    <rule id="708122" level="10">
+      <if_sid>4807</if_sid>
+      <field name="eventid">182</field>
+      <description>SonicWall: Received a path MTU ICMP message from router/gateway.</description>
+    </rule>
+    
+    <rule id="708123" level="10">
+      <if_sid>4807</if_sid>
+      <field name="eventid">188</field>
+      <description>SonicWall: Received a path MTU ICMP message from router/gateway.</description>
+    </rule>
+
+    <rule id="708124" level="10">
+      <if_sid>4807</if_sid>
+      <field name="eventid">191</field>
+      <description>SonicWall: Error setting the IP address of the Secondary, please manually set to Secondary LAN IP.</description>
+    </rule>
+    
+    <rule id="708125" level="10">
+      <if_sid>4803</if_sid>
+      <field name="eventid">199</field>
+      <description>SonicWall: CLI administrator login allowed.</description>
+    </rule>
+    
+    <rule id="708126" level="10">
+      <if_sid>4804</if_sid>
+      <field name="eventid">200</field>
+      <description>SonicWall: CLI administrator login denied due to bad credentials.</description>
+    </rule>
+   
+   <rule id="708127" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">201</field>
+     <description>SonicWall: L2TP Tunnel Negotiation Started.</description>
+   </rule>
+   
+   <rule id="708128" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">202</field>
+     <description>SonicWall: L2TP Session Negotiation Started.</description>
+   </rule>
+   
+   <rule id="708129" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">204</field>
+     <description>SonicWall: L2TP Tunnel Established.</description>
+   </rule>
+   
+   <rule id="708130" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">205</field>
+     <description>SonicWall: L2TP Tunnel Disconnect from Remote.</description>
+   </rule>
+   
+   <rule id="708131" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">206</field>
+     <description>SonicWall: L2TP Session Established.</description>
+   </rule>
+   
+   <rule id="708132" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">207</field>
+     <description>SonicWall: L2TP Session Disconnect from Remote.</description>
+   </rule>
+   
+   <rule id="708133" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">208</field>
+     <description>SonicWall: L2TP Session Disconnect from Remote.</description>
+   </rule>
+   
+   <rule id="708134" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">210</field>
+     <description>SonicWall: L2TP PPP Session Up.</description>
+   </rule>
+   
+   <rule id="708135" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">211</field>
+     <description>SonicWall: L2TP PPP Down.</description>
+   </rule>
+   
+   <rule id="708136" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">212</field>
+     <description>SonicWall: L2TP PPP Authentication Failed.</description>
+   </rule>
+   
+   <rule id="708137" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">215</field>
+     <description>SonicWall: Disconnecting L2TP Tunnel due to traffic Timeout.</description>
+   </rule>
+   
+   <rule id="708138" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">217</field>
+     <description>SonicWall: L2TP PPP link down.</description>
+   </rule>
+   
+   <rule id="708139" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^222$</field>
+     <description>SonicWall: DHCP RELEASE relayed to Central Gateway.</description>
+     <group>vpn</group>
+   </rule>
+
+   <rule id="708140" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^223$</field>
+     <description>SonicWall: DHCP lease relayed to local device.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708141" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^224$</field>
+     <description>SonicWall: DHCP RELEASE received from remote device.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708142" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^225$</field>
+     <description>SonicWall: DHCP lease relayed to remote device.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708143" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^226$</field>
+     <description>SonicWall: DHCP lease to LAN device conflicts with remote device, deleting remote IP entry.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708144" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^227$</field>
+     <description>SonicWall: WARNING: DHCP lease relayed from Central Gateway conflicts with IP in Static Devices list.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708145" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^228$</field>
+     <description>SonicWall: DHCP lease dropped. Lease from Central Gateway conflicts with Relay IP.</description>
+     <group>vpn</group>
+   </rule>
+
+   <rule id="708146" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^229$</field>
+     <description>SonicWall: IP spoof detected on packet to Central Gateway, packet dropped.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708147" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^230$</field>
+     <description>SonicWall: Request for Relay IP Table from Central Gateway.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708148" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^231$</field>
+     <description>SonicWall: Requesting Relay IP Table from Remote Gateway.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708149" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^232$</field>
+     <description>SonicWall: Sent Relay IP Table to Central Gateway.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708150" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^233$</field>
+     <description>SonicWall: Obtained Relay IP Table from Remote Gateway.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708151" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^234$</field>
+     <description>SonicWall: Failed to synchronize Relay IP Table.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708152" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^235$</field>
+     <description>SonicWall: VPN zone administrator login allowed.</description>
+     <group>users,vpn</group>
+   </rule>
+      
+   <rule id="709463" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^236$</field>
+     <description>SonicWall: WAN zone administrator login allowed.</description>
+   </rule>
+   
+   <rule id="708153" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^237$</field>
+     <description>SonicWall: VPN zone remote user login allowed.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708154" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">238</field>
+     <description>SonicWall: VPN zone remote user login allowed.</description>
+   </rule>
+   
+   <rule id="708155" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^239$</field>
+     <description>SonicWall: NAT Discovery : Peer IPsec Security Gateway behind a NAT/NAPT Device.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708156" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^240$</field>
+     <description>SonicWall: NAT Discovery : Local IPsec Security Gateway behind a NAT/NAPT Device.</description>
+   </rule>
+   
+   <rule id="708157" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^241$</field>
+     <description>SonicWall: NAT Discovery : No NAT/NAPT device detected between IPsec Security gateways.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708158" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^242$</field>
+     <description>SonicWall: NAT Discovery : Peer IPsec Security Gateway doesn't support VPN NAT Traversal.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708159" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">243</field>
+     <description>SonicWall: NAT Discovery : User login denied - RADIUS authentication failure.</description>
+   </rule>
+   
+   <rule id="708160" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">243</field>
+     <description>SonicWall: NAT Discovery : User login denied - RADIUS authentication failure.</description>
+   </rule>
+   
+   <rule id="708161" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">244</field>
+     <description>SonicWall: User login denied - RADIUS server Timeout.</description>
+   </rule>
+   
+   <rule id="708162" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">245</field>
+     <description>SonicWall: User login denied - RADIUS configuration error.</description>
+   </rule>
+   
+   <rule id="708163" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">245</field>
+     <description>SonicWall: User login denied - RADIUS configuration error.</description>
+   </rule>
+   
+   <rule id="708164" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">246</field>
+     <description>SonicWall: User login denied - User has no privileges for login from that location.</description>
+   </rule>
+   
+   <rule id="708165" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^247$</field>
+     <description>SonicWall: IPsec packet from an illegal host.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708166" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">248</field>
+     <description>SonicWall: IPsec packet from an illegal host.</description>
+   </rule>
+   
+   <rule id="708167" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^249$</field>
+     <description>SonicWall: IKE Responder: Mode %s - not tunnel mode.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708168" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^250$</field>
+     <description>SonicWall: IPsec packet from an illegal host.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708169" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^251$</field>
+     <description>SonicWall: IKE Responder: Proposed remote network is 0.0.0.0 but not DHCP relay nor default route.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708171" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^252$</field>
+     <description>SonicWall: IKE Responder: No match for proposed remote network address.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708172" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^253$</field>
+     <description>SonicWall: IKE Responder: IKE Responder: Default LAN gateway is set but peer is not proposing to use this SA as a default route.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708173" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^254$</field>
+     <description>SonicWall: IKE Responder: Tunnel terminates outside firewall but proposed local network is not NAT public address.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708174" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^255$</field>
+     <description>SonicWall: IKE Responder: Tunnel terminates inside firewall but proposed local network is not inside firewall.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708175" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^256$</field>
+     <description>SonicWall: IKE Responder: Tunnel terminates on DMZ but proposed local network is on LAN.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708176" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^257$</field>
+     <description>SonicWall: IKE Responder: Tunnel terminates on LAN but proposed local network is on DMZ.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708177" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^258$</field>
+     <description>SonicWall: IKE Responder: AH Perfect Forward Secrecy mismatch.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708178" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^259$</field>
+     <description>SonicWall: IKE Responder: ESP Perfect Forward Secrecy mismatch.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708179" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^260$</field>
+     <description>SonicWall: IKE Responder: Algorithms and/or keys do not match.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708180" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^261$</field>
+     <description>SonicWall: Administrator logged out.</description>
+   </rule>
+   
+   <!-- 708047 -->
+   <rule id="708047" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^262$</field>
+     <srcip>47.181.99.193</srcip>
+     <description>SonicWall: Administrator logged out - inactivity timer expired for WesternNRG.</description>
+   </rule>
+   
+   <rule id="708181" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^262$</field>
+     <description>SonicWall: Administrator logged out - inactivity timer expired.</description>
+   </rule>
+   
+   <rule id="708182" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^263$</field>
+     <description>SonicWall: User logged out - %s.</description>
+     <group>users,authentication-access,user-activity,info,user-logout,</group>
+   </rule>
+   
+   <rule id="708183" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^264$</field>
+     <description>SonicWall: User logged out- max session time exceeded.</description>
+     <group>users,authentication-access,user-activity,info,user-logout-max-session,</group>
+   </rule>
+   
+   <rule id="708184" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^265%</field>
+     <description>SonicWall: User logged out - inactivity timer expired.</description>
+     <group>users,authentication-access,user-activity,info,user-logout-max-timer,</group>
+   </rule>
+   
+   <rule id="708185" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^266$</field>
+     <description>SonicWall: NAT device may not support IPsec AH pass-through.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708186" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">^267$</field>
+     <description>SonicWall: TCP Xmas Tree dropped.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708187" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^269$</field>
+     <description>SonicWall: Requesting CRL from.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708188" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^270$</field>
+     <description>SonicWall: CRL loaded from.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708189" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">^271$</field>
+     <description>SonicWall: Failed to get CRL from.</description>
+   </rule>
+   
+   <rule id="708190" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^272$</field>
+     <description>SonicWall: Not enough memory to hold the CRL.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708191" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">^273$</field>
+     <description>SonicWall: Connection timed out.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708192" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">^274$</field>
+     <description>SonicWall: Cannot connect to the CRL server.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708193" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^275$</field>
+     <description>SonicWall: CRL Failed - No Reason: Unknown reason.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708194" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">^276$</field>
+     <description>SonicWall: Failed to Process CRL from.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708195" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">^277$</field>
+     <description>SonicWall: Bad CRL format.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708196" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">^278$</field>
+     <description>SonicWall: Issuer match failed.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708197" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">^279$</field>
+     <description>SonicWall: Certificate on Revoked list(CRL).</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708198" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">^280$</field>
+     <description>SonicWall: No Certificate for.</description>
+     <group>vpn</group>
+   </rule>
+   
+   <rule id="708199" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">281</field>
+     <description>SonicWall: PPP Dial-Up: Dialing: %s.</description>
+   </rule>
+   
+   <rule id="708200" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">282</field>
+     <description>SonicWall: PPP Dial-Up: No dial tone detected - check phone-line connection.</description>
+   </rule>
+   
+   <rule id="708201" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">283</field>
+     <description>SonicWall: PPP Dial-Up: No link carrier detected - check phone number.</description>
+   </rule>
+   
+   <rule id="708202" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">284</field>
+     <description>SonicWall: PPP Dial-Up: Dialed number is busy.</description>
+   </rule>
+   
+   <rule id="708203" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">285</field>
+     <description>SonicWall: PPP Dial-Up: Dialed number did not answer.</description>
+   </rule>
+   
+   <rule id="708204" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">286</field>
+     <description>SonicWall: PPP Dial-Up: Connected at %s bps - starting PPP.</description>
+   </rule>
+   
+   <rule id="708205" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">287</field>
+     <description>SonicWall: PPP Dial-Up: Unknown dialing failure.</description>
+   </rule>
+   
+   <rule id="708206" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">288</field>
+     <description>SonicWall: PPP Dial-Up: Link carrier lost.</description>
+   </rule>
+   
+   <rule id="708207" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">289</field>
+     <description>SonicWall: PPP: Authentication successful.</description>
+   </rule>
+   
+   <rule id="708208" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">290</field>
+     <description>SonicWall: PPP: PAP Authentication failed - check username / password.</description>
+   </rule>
+   
+   <rule id="708209" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">291</field>
+     <description>SonicWall: PPP: CHAP authentication failed - check username / password.</description>
+   </rule>
+   
+   <rule id="708210" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">291</field>
+     <description>SonicWall: PPP: CHAP authentication failed - check username / password.</description>
+   </rule>
+   
+   <rule id="708211" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">292</field>
+     <description>SonicWall: PPP: CHAP authentication failed - check username / password.</description>
+   </rule>
+   
+   <rule id="708212" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">293</field>
+     <description>SonicWall: PPP: Starting MS-CHAP authentication.</description>
+   </rule>
+
+   <rule id="708213" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">294</field>
+     <description>SonicWall: PPP: Starting CHAP authentication.</description>
+   </rule>
+   
+   <rule id="708214" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">295</field>
+     <description>SonicWall: PPP: Starting PAP authentication.</description>
+   </rule>
+   
+   <rule id="708215" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">299</field>
+     <description>SonicWall: PPP Dial-Up: Received new IP address.</description>
+   </rule>
+   
+   <rule id="708216" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">299</field>
+     <description>SonicWall: PPP Dial-Up: Received new IP address.</description>
+   </rule>
+   
+   <rule id="708217" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">300</field>
+     <description>SonicWall: PPP Dial-Up: PPP link established.</description>
+   </rule>
+   
+   <rule id="708218" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">301</field>
+     <description>SonicWall: PPP Dial-Up: PPP link down.</description>
+   </rule>
+   
+   <rule id="708219" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">302</field>
+     <description>SonicWall: PPP Dial-Up: Shutting down link.</description>
+   </rule>
+   
+   <rule id="708220" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">303</field>
+     <description>SonicWall: PPP Dial-Up: Initialization : %s.</description>
+   </rule>
+   
+   <rule id="708221" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">306</field>
+     <description>SonicWall: PPP Dial-Up: Connect request canceled.</description>
+   </rule>
+   
+   <rule id="708222" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">307</field>
+     <description>SonicWall: The network connection in use is %s.</description>
+   </rule>
+   
+   <rule id="708223" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^308$</field>
+     <description>SonicWall: L2TP Server : L2TP Tunnel Established.</description>
+     <group>vpn,l2tp-server,maintenance,info,l2tp-tunnel-established</group>
+   </rule>
+   
+   <rule id="708224" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^309$</field>
+     <description>SonicWall: L2TP Server : L2TP Session Established.</description>
+     <group>vpn,l2tp-server,maintenance,info,l2tp-session-established</group>
+   </rule>
+   
+   <rule id="708225" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^311$</field>
+     <description>SonicWall: L2TP Server: RADIUS/LDAP reports Authentication Failure.</description>
+     <group>vpn,l2tp-server,maintenance,info,l2tp-radius-authentication-failure</group>
+   </rule>
+   
+   <rule id="708344" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^312$</field>
+     <description>SonicWall: L2TP Server: Local Authentication Failure.</description>
+     <group>vpn,l2tp-server,maintenance,info,l2tp-local-authentication-failure</group>
+   </rule>
+   
+   <rule id="708226" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^318$</field>
+     <description>SonicWall: L2TP Server: Local Authentication Success.</description>
+     <group>vpn,l2tp-server,maintenance,info,l2tp-local-authentication-success</group>
+   </rule>
+   
+   <rule id="708227" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^319$</field>
+     <description>SonicWall: L2TP Server: RADIUS/LDAP Authentication Success.</description>
+     <group>vpn,l2tp-server,maintenance,info,l2tp-radius-authentication-success</group>
+   </rule>
+   
+   <rule id="708228" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">321</field>
+     <description>SonicWall: PPP Dial-Up: Manual intervention needed. Check Primary Profile or Profile details.</description>
+   </rule>
+   
+   <rule id="708229" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">322</field>
+     <description>SonicWall: PPP Dial-Up: Trying to failover but Primary Profile is manual.</description>
+   </rule>
+   
+   <rule id="708230" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">326</field>
+     <description>SonicWall: Probing failure on %s.</description>
+   </rule>
+   
+   <rule id="708231" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^327$</field>
+     <description>SonicWall: PPP Dial-Up: Maximum connection time exceeded - disconnecting.</description>
+   </rule>
+   
+   <rule id="708232" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">328</field>
+     <description>SonicWall: Administrator name changed.</description>
+   </rule>
+   
+   <rule id="708233" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">329</field>
+     <description>SonicWall: User login failure rate exceeded - logins from user IP address denied.</description>
+   </rule>
+   
+   <rule id="708234" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">330</field>
+     <description>SonicWall: PPP Dial-Up: The profile in use disabled VPN networking.</description>
+   </rule>
+   
+   <rule id="708235" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">331</field>
+     <description>SonicWall: PPP Dial-Up: VPN networking restored..</description>
+   </rule>
+   
+   <rule id="708236" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^335$</field>
+     <description>SonicWall: L2TP Server: Tunnel Disconnect from Remote.</description>
+     <group>vpn,l2tp-server,maintenance,info,l2tps-tunnel-disconnect-from-remote</group>
+   </rule>
+   
+   <rule id="708237" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^336$</field>
+     <description>SonicWall: L2TP Server : Deleting the Tunnel.</description>
+     <group>vpn,l2tp-server,maintenance,info,l2tps-tunnel-delete</group>
+   </rule>
+   
+   <rule id="708238" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^337$</field>
+     <description>SonicWall: L2TP Server : Deleting the L2TP active Session.</description>
+     <group>vpn,l2tp-server,maintenance,info,l2tps-session-delete</group>
+   </rule>
+   
+   <rule id="708239" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^338$</field>
+     <description>SonicWall: L2TP Server : Retransmission Timeout, Deleting the Tunnel.</description>
+     <group>vpn,l2tp-server,maintenance,info,l2tps-retransmission-timeout</group>
+   </rule>
+   
+   <rule id="708240" level="10">
+     <if_sid>4807</if_sid>
+     <field name="eventid">339</field>
+     <description>SonicWall: NAT translated packet exceeds size limit, packet dropped.</description>
+   </rule>
+   
+   <rule id="708241" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">340</field>
+     <description>SonicWall: HTTP management port has changed.</description>
+   </rule>
+   
+   <rule id="708242" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">341</field>
+     <description>SonicWall: HTTPS management port has changed.</description>
+   </rule>
+   
+   <rule id="708243" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^344$</field>
+     <description>SonicWall: L2TP Server : User Name authentication Failure locally.</description>
+     <group>vpn,l2tp-server,maintenance,info,l2tps-authentication-local-failure</group>
+   </rule>
+   
+   <rule id="708244" level="5">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^346$</field>
+     <description>SonicWall: IKE Initiator: Start Quick Mode (Phase 2).</description>
+     <group>vpn,vpn-ike,user-activity,info,quick-mode-started</group>
+   </rule>
+   
+   <rule id="708245" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">347</field>
+     <description>SonicWall: Port configured to receive IPsec protocol ONLY; drop packet received in the clear.</description>
+   </rule>
+   
+   <rule id="708246" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^348$</field>
+     <description>SonicWall: Imported VPN SA is invalid - disabled.</description>
+     <group>vpn,vpn-ipsec,maintenance,warning,vpn-sa-import-invalid</group>
+   </rule>
+   
+   <rule id="708247" level="5">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^350$</field>
+     <description>SonicWall: IKE SA lifetime expired.</description>
+     <group>vpn,vpn-ike,maintenance,info,ike-sa-lifetime-expired</group>
+   </rule>
+   
+   <rule id="708248" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^351$</field>
+     <description>SonicWall: IKE Initiator: Start Main Mode negotiation (Phase 1).</description>
+     <group>vpn,vpn-ike,maintenance,info,ike-main-mode-started</group>
+   </rule>
+   
+   <rule id="708249" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^352$</field>
+     <description>SonicWall: IKE Responder: Received Quick Mode Request (Phase 2).</description>
+     <group>vpn,vpn-ike,maintenance,info,ike-quick-mode-request-received</group>
+   </rule>
+   
+   <rule id="708250" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^353$</field>
+     <description>SonicWall: IKE Initiator: Main Mode complete (Phase 1).</description>
+     <group>vpn,vpn-ike,maintenance,info,initial-main-mode-completed</group>
+   </rule>
+   
+   <rule id="708251" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^354$</field>
+     <description>SonicWall: IKE Initiator: Aggressive Mode complete (Phase 1).</description>
+     <group>vpn,vpn-ike,maintenance,info,initial-agressive-mode-completed</group>
+   </rule>
+   
+   <rule id="708252" level="5">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^355$</field>
+     <description>SonicWall: IKE Responder: Received Main Mode Request (Phase 1).</description>
+     <group>vpn,vpn-ike,maintenance,info,responder-main-mode-request-received</group>
+   </rule>
+   
+   <rule id="708253" level="5">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^356$</field>
+     <description>SonicWall: IKE Responder: Received Aggressive Mode Request (Phase 1).</description>
+     <group>vpn,vpn-ike,maintenance,info,responder-aggressive-mode-request-received</group>
+   </rule>
+   
+   <rule id="708254" level="5">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^357$</field>
+     <description>SonicWall: IKE Responder: Main Mode complete (Phase 1).</description>
+     <group>vpn,vpn-ike,maintenance,info,responder-main-mode-completed</group>
+   </rule>
+   
+   <rule id="708255" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^358$</field>
+     <description>SonicWall: IKE Initiator: Start Aggressive Mode negotiation (Phase 1).</description>
+     <group>vpn,vpn-ike,maintenance,info,agressive-mode-started</group>
+   </rule>
+   
+   <rule id="708256" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">360</field>
+     <description>SonicWall: Crypto DES test failed.</description>
+   </rule>
+   
+   <rule id="708257" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">361</field>
+     <description>SonicWall: Crypto DH test failed.</description>
+   </rule>
+   
+   <rule id="708258" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">362</field>
+     <description>SonicWall: Crypto Hmac-MD5 test failed.</description>
+   </rule>
+   
+   <rule id="708259" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^363$</field>
+     <description>SonicWall: Crypto Hmac-MD5 test failed.</description>
+   </rule>
+   
+   <rule id="708260" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^364$</field>
+     <description>SonicWall: Crypto Hmac-Sha1 test failed.</description>
+   </rule>
+   
+   <rule id="708261" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">365</field>
+     <description>SonicWall: Crypto RSA test failed.</description>
+   </rule>
+   
+   <rule id="708262" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">366</field>
+     <description>SonicWall: Crypto Sha1 test failed.</description>
+   </rule>
+   
+   <rule id="708263" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">367</field>
+     <description>SonicWall: Crypto hardware 3DES test failed.</description>
+   </rule>
+   
+   <rule id="708264" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">368</field>
+     <description>SonicWall: Crypto hardware DES with SHA test failed.</description>
+   </rule>
+   
+   <rule id="708265" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">369</field>
+     <description>SonicWall: Crypto Hardware 3DES with SHA test failed.</description>
+   </rule>
+   
+   <rule id="708266" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^371^</field>
+     <description>SonicWall: VPN Client Policy Provisioning.</description>
+     <group>vpn,vpn-client,user-activity,info,client-policy-provisioned</group>
+   </rule>
+   
+   <rule id="708267" level="5">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^372$</field>
+     <description>SonicWall: IKE Initiator: Accepting IPsec proposal (Phase 2).</description>
+     <group>vpn,vpn-ike,user-activity,info,ike-initiator-accept-proposal</group>
+   </rule>
+   
+   <rule id="708268" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^373$</field>
+     <description>SonicWall: IKE Responder: Aggressive Mode complete (Phase 1).</description>
+     <group>vpn,vpn-ike,user-activity,info,ike-responder-aggressive-mode-complete</group>
+   </rule>
+   
+   <rule id="708269" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">375</field>
+     <description>SonicWall: PPTP Control Connection Negotiation Started.</description>
+   </rule>
+
+   <rule id="708270" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">376</field>
+     <description>SonicWall: PPTP Session Negotiation Started.</description>
+   </rule>
+   
+   <rule id="708271" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">378</field>
+     <description>SonicWall: PPTP Control Connection Established.</description>
+   </rule>
+   
+   <rule id="708272" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">379</field>
+     <description>SonicWall: PPTP Tunnel Disconnect from Remote.</description>
+   </rule>
+   
+   <rule id="708273" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">380</field>
+     <description>SonicWall: PPTP Session Established.</description>
+   </rule>
+   
+   <rule id="708274" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">381</field>
+     <description>SonicWall: PPTP Session Disconnect from Remote.</description>
+   </rule>
+   
+   <rule id="708275" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^382$</field>
+     <description>SonicWall: PPTP PPP Negotiation Started.</description>
+   </rule>
+   
+   <rule id="708276" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">384</field>
+     <description>SonicWall: PPTP PPP Session Up.</description>
+   </rule>
+   
+   <rule id="708277" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^385$</field>
+     <description>SonicWall: PPTP PPP Down.</description>
+   </rule>
+   
+   <rule id="709462" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^388$</field>
+     <description>SonicWall: PPTP Disconnect Initiated by the User.</description>
+   </rule>
+   
+   <rule id="708278" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">389</field>
+     <description>SonicWall: Disconnecting PPTP Tunnel due to traffic Timeout.</description>
+   </rule>
+   
+   <rule id="708279" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">390</field>
+     <description>SonicWall: PPTP Connect Initiated by the User.</description>
+   </rule>
+   
+   <rule id="708280" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">392</field>
+     <description>SonicWall: PPTP starting CHAP Authentication.</description>
+   </rule>
+   
+   <rule id="708281" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">393</field>
+     <description>SonicWall: PPTP starting PAP Authentication.</description>
+   </rule>
+   
+   <rule id="708282" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">396</field>
+     <description>SonicWall: PPTP PAP Authentication success.</description>
+   </rule>
+   
+   <rule id="708283" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">398</field>
+     <description>SonicWall: PPTP PPP Link Up.</description>
+   </rule>
+
+   <rule id="708284" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">399</field>
+     <description>SonicWall: PPTP PPP Link down.</description>
+   </rule>
+   
+   <rule id="708285" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">400</field>
+     <description>SonicWall: PPTP PPP Link Finished.</description>
+   </rule>
+   
+   <rule id="708286" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^401$</field>
+     <description>SonicWall: Received notify. NO_PROPOSAL_CHO SEN.</description>
+     <group>vpn,vpn-ike,user-activity,warning,no-proposal-chosen</group>
+   </rule>
+   
+   <rule id="708287" level="5">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^402$</field>
+     <description>SonicWall: IKE Responder: IKE proposal does not match (Phase 1).</description>
+     <group>vpn,vpn-ike,user-activity,warning,proposal-rejected</group>
+   </rule>
+   
+   <rule id="709458" level="5">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^403$</field>
+     <description>SonicWall: IKE negotiation aborted due to Timeout.</description>
+     <group>vpn,vpn-ike,user-activity,info,negotiation-aborted</group>
+   </rule>
+   
+   <rule id="708288" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^404$</field>
+     <description>SonicWall: Failed payload verification after decryption; possible preshared key mismatch.</description>
+     <group>vpn,vpn-ike,user-activity,warning,decryption-failed-key-mismatch</group>
+   </rule>
+   
+   <rule id="708289" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^405$</field>
+     <description>SonicWall: Failed payload validation.</description>
+     <group>vpn,vpn-ike,user-activity,warning,payload-validation-failed</group>
+   </rule>
+   
+   <rule id="708290" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^406$</field>
+     <description>SonicWall: Failed payload validation.</description>
+     <group>vpn,vpn-ike,user-activity,warning,duplicate-packet-dropped</group>
+   </rule>
+   
+   <rule id="708291" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^408$</field>
+     <description>SonicWall: Anti-Virus Licenses Exceeded.</description>
+   </rule>
+   
+   <rule id="709461" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^409$</field>
+     <description>SonicWall: Received notify: ISAKMP_AUTH_FAILED.</description>
+     <group>vpn,vpn-ike,user-activity,warning,authentication-failed</group>
+   </rule>
+   
+   <rule id="708292" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^410$</field>
+     <description>SonicWall: Computed hash does not match hash received from peer; preshared key mismatch.</description>
+     <group>vpn,vpn-ike,user-activity,warning,hash-failed</group>
+   </rule>
+   
+   <rule id="708293" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^411$</field>
+     <description>SonicWall: Received notify: PAYLOAD_MALFORM ED.</description>
+     <group>vpn,vpn-ike,user-activity,warning,notification-on-malformed-payload</group>
+   </rule>
+   
+   <rule id="708294" level="5">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^412$</field>
+     <description>SonicWall: Received IPsec SA delete request.</description>
+     <group>vpn,vpn-ike,user-activity,info,receive-ipsec-delete-request</group>
+   </rule>
+
+   <rule id="708295" level="5">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^413$</field>
+     <description>SonicWall: Received IKE SA delete request.</description>
+     <group>vpn,vpn-ike,user-activity,info,receive-ike-delete-request</group>
+   </rule>
+   
+   <rule id="708296" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^414$</field>
+     <description>SonicWall: Received notify: INVALID_COOKIES.</description>
+     <group>vpn,vpn-ike,user-activity,info,invalid-cookies</group>
+   </rule>
+   
+   <rule id="708297" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^415$</field>
+     <description>SonicWall: Received notify: RESPONDER_LIFETIM E.</description>
+     <group>vpn,vpn-ike,user-activity,info,notification-on-responder-lifetime</group>
+   </rule>
+   
+   <rule id="708298" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^416$</field>
+     <description>SonicWall: Received notify: INVALID_SPI.</description>
+     <group>vpn,vpn-ike,user-activity,info,notification-on-invalisd-spi</group>
+   </rule>
+   
+   <rule id="708299" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">419</field>
+     <description>SonicWall: Received notify: INVALID_SPI.</description>
+   </rule>
+   
+   <rule id="708300" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">420</field>
+     <description>SonicWall: RIPv1 enabled on interface %s.</description>
+   </rule>
+   
+   <rule id="708301" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">421</field>
+     <description>SonicWall: RIPv2 enabled on interface %s.</description>
+   </rule>
+   
+   <rule id="708302" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">422</field>
+     <description>SonicWall: RIPv2 compatibility (broadcast) mode enabled on interface %s.</description>
+   </rule>
+   
+   <rule id="708303" level="5">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^427$</field>
+     <description>SonicWall: IPsec Tunnel status changed.</description>
+     <group>vpn,vpn-ipsec,user-activity,warning,notification-on-invalisd-spi</group>
+   </rule>
+   
+   <rule id="708304" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">428</field>
+     <description>SonicWall: Source routed IP packet dropped.</description>
+   </rule>
+   
+   <rule id="708305" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">429</field>
+     <description>SonicWall: Source routed IP packet dropped.</description>
+   </rule>
+
+   <rule id="708306" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">429</field>
+     <description>SonicWall: No response from server to Echo Requests, disconnecting PPTP Tunnel.</description>
+   </rule>
+   
+   <rule id="708307" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">430</field>
+     <description>SonicWall: No response from PPTP server to control connection requests.</description>
+   </rule>
+   
+   <rule id="708308" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^431$</field>
+     <description>SonicWall: No response from PPTP server to call requests.</description>
+   </rule>
+   
+   <rule id="708309" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^431$</field>
+     <description>SonicWall: No response from PPTP server to call requests.</description>
+   </rule>
+
+   <rule id="708310" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^432$</field>
+     <description>SonicWall: PPTP server rejected control connection.</description>
+   </rule>
+   
+   <rule id="708311" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">433</field>
+     <description>SonicWall: PPTP server rejected the call request.</description>
+   </rule>
+   
+   <rule id="708312" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">434</field>
+     <description>SonicWall: PPP Dial-Up: Trying to failover but Alternate Profile is manual.</description>
+   </rule>
+   
+   <rule id="708313" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">435</field>
+     <description>SonicWall: WLB Failback initiated by %s.</description>
+   </rule>
+   
+   <rule id="708314" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">436</field>
+     <description>SonicWall: Probing succeeded on %s.</description>
+   </rule>
+   
+   <rule id="708315" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">437</field>
+     <description>SonicWall: E-Mail fragment dropped.</description>
+   </rule>
+   
+   <rule id="708316" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">438</field>
+     <description>SonicWall: Locked-out user logins allowed - lockout period expired.</description>
+   </rule>
+   
+   <rule id="708317" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">439</field>
+     <description>SonicWall: Locked-out user logins allowed by %s.</description>
+   </rule>
+   
+   <rule id="708318" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">440</field>
+     <description>SonicWall: Access rule added.</description>
+   </rule>
+   
+   <rule id="708319" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">441</field>
+     <description>SonicWall: Access rule viewed or modified.</description>
+   </rule>
+   
+   <rule id="708320" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">442</field>
+     <description>SonicWall: Access rule deleted.</description>
+   </rule>
+   
+   <rule id="708321" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">444</field>
+     <description>SonicWall: PPTP Server is not responding, check if the server is UP and running.</description>
+   </rule>
+   
+   <rule id="708322" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^445$</field>
+     <description>SonicWall: IKE Initiator: Accepting peer lifetime. (Phase 1).</description>
+     <group>vpn,vpn-ike,user-activity,info,ike-initiator-peer-lifetime-accept</group>
+   </rule>
+   
+   <rule id="708323" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">446</field>
+     <description>SonicWall: FTP: PASV response spoof attack dropped.</description>
+   </rule>
+   
+   <rule id="708324" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^448$</field>
+     <description>SonicWall: PKI Failure: Output buffer too small.</description>
+     <group>vpn,vpn-pki,maintenance,error,pki-output-buffer-failure</group>
+   </rule>
+   
+   <rule id="708325" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^449$</field>
+     <description>SonicWall: PKI Failure: Output buffer too small.</description>
+     <group>vpn,vpn-pki,manintenance,error,pki-allocate-memory-failure</group>
+   </rule>
+   
+   <rule id="708326" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^450$</field>
+     <description>SonicWall: PKI Failure: Reached the limit for local certs, cant load any more.</description>
+     <group>vpn,vpn-pki,manintenance,error,pki-certificate-failure</group>
+   </rule>
+   
+   <rule id="708327" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^451$</field>
+     <description>SonicWall: PKI Failure: Import failed.</description>
+     <group>vpn,vpn-pki,manintenance,error,pki-import-failure</group>
+   </rule>
+
+   <!-- 708328 -->
+   
+   <rule id="708329" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^452$</field>
+     <description>SonicWall: PKI Failure: Incorrect admin password.</description>
+     <group>vpn,vpn-pki,manintenance,error,pki-bad-passworde</group>
+     <options>alert_by_email</options>
+   </rule>
+   
+   <rule id="708330" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^453$</field>
+     <description>SonicWall: PKI Failure: CA certificates store exceeded. Cannot verify this Local Certificate.</description>
+     <group>vpn,vpn-pki,manintenance,error,pki-ca-certificate-failure</group>
+   </rule>
+   
+   <rule id="708331" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^454$</field>
+     <description>SonicWall: PKI Failure: Improper file format. Please select PKCS#12 (*.p12) file.</description>
+     <group>vpn,vpn-pki,manintenance,error,pki-ca-certificate-failure</group>
+   </rule>
+   
+   <rule id="708332" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^455$</field>
+     <description>SonicWall: PKI Failure: Certificate's ID does not match this Network Security Appliance.</description>
+     <group>vpn,vpn-pki,manintenance,error,pki-certificate-id-failure</group>
+   </rule>
+   
+   <rule id="708333" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^456$</field>
+     <description>SonicWall: PKI Failure: public-private key mismatch.</description>
+     <group>vpn,vpn-pki,manintenance,error,pki-key-mismatch</group>
+   </rule>
+   
+   <rule id="708334" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^457$</field>
+     <description>SonicWall: PKI Failure: Duplicate local certificate name.</description>
+     <group>vpn,vpn-pki,manintenance,error,pki-key-mismatch</group>
+   </rule>
+   
+   <rule id="708335" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^458$</field>
+     <group>vpn,vpn-pki,manintenance,error,pki-no-certificate</group>
+     <description>SonicWall: PKI Failure: Duplicate local certificate.</description>
+     <group>vpn,vpn-pki,manintenance,error,pki-local-certificate-duplicate</group>
+   </rule>
+   
+   <rule id="708336" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^459$</field>
+     <description>SonicWall: PKI Failure: No CA certificates yet loaded.</description>
+     <group>vpn,vpn-pki,manintenance,error,pki-no-certificate</group>
+   </rule>
+   
+   <rule id="709460" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^460$</field>
+     <description>SonicWall: PKI Failure: Internal error.</description>
+     <group>vpn,vpn-pki,manintenance,error,pki-internal-error</group>
+   </rule>
+   
+   <rule id="708337" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^461$</field>
+     <description>SonicWall: PKI Failure: Temporary memory shortage, try again.</description>
+     <group>vpn,vpn-pki,manintenance,error,pki-no-resource</group>
+   </rule>
+   
+   <rule id="708338" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^462$</field>
+     <description>SonicWall: PKI Failure: The certificate chain is circular.</description>
+     <group>vpn,vpn-pki,manintenance,error,pki-certificate-chain-circular</group>
+   </rule>
+   
+   <rule id="708339" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^463$</field>
+     <description>SonicWall: PKI Failure: The certificate chain is incomplete.</description>
+     <group>vpn,vpn-pki,manintenance,error,pki-certificate-chain-incomplete</group>
+   </rule>
+   
+   <rule id="708340" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^464$</field>
+     <description>SonicWall: PKI Failure: The certificate chain has no root.</description>
+     <group>vpn,vpn-pki,manintenance,error,pki-certificate-chain-no-root</group>
+   </rule>
+   
+   <rule id="708341" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^465$</field>
+     <description>SonicWall: PKI Failure: Certificate expiration.</description>
+     <group>vpn,vpn-pki,manintenance,error,pki-certificate-chain-no-root</group>
+   </rule>
+   
+   <rule id="708342" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^466$</field>
+     <description>SonicWall: PKI Failure: The certificate or a certificate in the chain has a validity period in the future.</description>
+     <group>vpn,vpn-pki,manintenance,error,pki-certificate-invalid</group>
+   </rule>
+   
+   <rule id="708343" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^467$</field>
+     <description>SonicWall: PKI Failure: The certificate or a certificate in the chain is corrupt.</description>
+     <group>vpn,vpn-pki,manintenance,error,pki-certificate-corrupt</group>
+   </rule>
+   
+   <!-- 708344 already used for EventID 312-->
+   
+   <rule id="708383" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^468$</field>
+     <description>SonicWall: PKI Failure: The certificate or a certificate in the chain has a bad signature.</description>
+     <group>vpn,vpn-pki,manintenance,error,pki-certificate-bad-signature</group>
+   </rule>
+   
+   <rule id="708345" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^469$</field>
+     <description>SonicWall: PKI Failure: PKI Failure: Loaded but could not verify certificate.</description>
+     <group>vpn,vpn-pki,manintenance,error,pki-certificate-not-verfied</group>
+   </rule>
+   
+   <rule id="708346" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^470$</field>
+     <description>SonicWall: PKI Warning: Loaded the certificate but could not verify its chain.</description>
+     <group>vpn,vpn-pki,manintenance,error,pki-certificate-chain-not-verfied</group>
+   </rule>
+   
+   <rule id="708347" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^473$</field>
+     <description>SonicWall: DHCP REQUEST received from remote device.</description>
+     <group>vpn,dhcp-relay,debug,info,remote-dhcp-request</group>
+   </rule>
+   
+   <rule id="708348" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^474$</field>
+     <description>SonicWall: DHCP DISCOVER received from remote device.</description>
+     <group>vpn,dhcp-relay,debug,info,remote-dhcp-discover</group>
+   </rule>
+   
+   <rule id="708349" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^476$</field>
+     <description>SonicWall: DHCP OFFER received from server.</description>
+     <group>vpn,dhcp-relay,debug,info,remote-dhcp-offer</group>
+   </rule>
+   
+   <rule id="708350" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^477$</field>
+     <description>SonicWall: DHCP NACK received from server.</description>
+     <group>vpn,dhcp-relay,debug,info,remote-dhcp-nack</group>
+   </rule>
+   
+   <rule id="708351" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">481</field>
+     <description>SonicWall: PPP Dial-Up: No peer IP address from Dial-Up ISP, local and remote IPs will be the same.</description>
+   </rule>
+   
+   <rule id="708352" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">482</field>
+     <description>SonicWall: Received AV Alert: Your Network Anti-Virus subscription will expire in 7 days. %s.</description>
+   </rule>
+   
+   <rule id="708353" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^483$</field>
+     <description>SonicWall: Received notify: INVALID_ID_INFO.</description>
+     <group>vpn,vpn-ipsec,user-activity,warning,invalid-id</group>
+   </rule>
+   
+   <rule id="708354" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^484$</field>
+     <description>SonicWall: DHCP lease dropped. Lease from Central Gateway conflicts with Remote Management IP.</description>
+     <group>vpn,dhcp-relay,maintenance,dhcp-release-drop</group>
+   </rule>
+   
+   <rule id="708355" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">486</field>
+     <description>SonicWall: User login denied - User has no privileges for guest service.</description>
+   </rule>
+   
+   <rule id="708356" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">488</field>
+     <description>SonicWall: Packet dropped by guest check.</description>
+   </rule>
+   
+   <rule id="708357" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">491</field>
+     <description>SonicWall: Received E-Mail Filter Alert: Your E-Mail Filtering subscription will expire in 7 days.</description>
+   </rule>
+
+   <rule id="708358" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">492</field>
+     <description>SonicWall: Received Received E-Mail Filter Alert: Your E-Mail Filtering subscription has expired..</description>
+   </rule>
+   
+   <rule id="708359" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">493</field>
+     <description>SonicWall: ISDN Driver Firmware successfully updated.</description>
+   </rule>
+   
+   <rule id="708360" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^494$</field>
+     <description>SonicWall: Global VPN Client License Exceeded: Connection denied.</description>
+     <group>vpn,vpn-client,system-error,info,658,gvc-license-exceded</group>
+   </rule>
+   
+   <rule id="708361" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">496</field>
+     <description>SonicWall: Registration Update Needed, Please restore your existing security service subscriptions.</description>
+   </rule>
+   
+   <rule id="708362" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">502</field>
+     <description>SonicWall: WAN not ready.</description>
+   </rule>
+   
+   <rule id="708363" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^505$</field>
+     <description>SonicWall: Blocked Quick Mode for Client using Default KeyId.</description>
+     <group>vpn,vpn-client,system-error,error,660,blocked-quick-mode-with-default-key-id</group>
+   </rule>
+   
+   <rule id="708364" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^506$</field>
+     <description>SonicWall: VPN disabled by administrator.</description>
+     <group>vpn,users,authentication-access,maintenance,info,vpn-disabled</group>
+   </rule>
+   
+   <rule id="708365" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^507$</field>
+     <description>SonicWall: VPN enabled by administrator.</description>
+     <group>vpn,users,authentication-access,maintenance,info,vpn-enabled</group>
+   </rule>
+   
+   <rule id="708366" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">508</field>
+     <description>SonicWall: WLAN disabled by administrator.</description>
+   </rule>
+   
+   <rule id="708367" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">509</field>
+     <description>SonicWall: WLAN enabled by administrator.</description>
+   </rule>
+   
+   <rule id="708368" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">518</field>
+     <description>SonicWall: 802.11 Management.</description>
+   </rule>
+   
+   <rule id="708369" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">520</field>
+     <description>SonicWall: CLI administrator logged out.</description>
+   </rule>
+   
+   <rule id="708370" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">521</field>
+     <description>SonicWall: Network Security Appliance initializing.</description>
+   </rule>
+   
+   <rule id="708371" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">522</field>
+     <description>SonicWall: Malformed or unhandled IP packet dropped.</description>
+   </rule>
+   
+   <rule id="708372" level="10">
+     <if_sid>4805</if_sid>
+     <field name="eventid">523</field>
+     <description>SonicWall: ICMP packet dropped no match.</description>
+   </rule>
+   
+   <rule id="708373" level="10">
+     <if_sid>4805</if_sid>
+     <field name="eventid">524</field>
+     <description>SonicWall: Web access Request dropped.</description>
+   </rule>
+   
+   <rule id="708374" level="10">
+     <if_sid>4805</if_sid>
+     <field name="eventid">526</field>
+     <description>SonicWall: Web management request allowed.</description>
+   </rule>
+   
+   <rule id="708375" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">527</field>
+     <description>SonicWall: FTP: PORT bounce attack dropped.</description>
+   </rule>
+   
+   <rule id="708376" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">528</field>
+     <description>SonicWall: FTP: PASV response bounce attack dropped.</description>
+   </rule>
+   
+   <rule id="708377" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^529$</field>
+     <description>SonicWall: Global VPN Client connection is not allowed. Appliance is not registered.</description>
+     <group>vpn,vpn-client,system-error,info,643,gvc-not-authorized</group>
+   </rule>
+   
+   <!-- 708378 -->
+    
+   <rule id="708379" level="10">
+     <if_sid>4805</if_sid>
+     <field name="eventid">^533$</field>
+     <match negate="yes">src=165.156.25.6</match>
+     <description>SonicWall: IPsec (ESP) packet dropped.</description>
+     <group>vpn,vpn-ipsec,tcp-udp-icmp,notice,esp-drop</group>
+   </rule>
+   
+   <!-- 708380 -->
+   
+   <rule id="708381" level="10">
+     <if_sid>4805</if_sid>
+     <field name="eventid">^534$</field>
+     <description>SonicWall: IPsec (AH) packet dropped.</description>
+     <group>vpn,vpn-ipsec,tcp-udp-icmp,notice,ah-drop</group>
+   </rule>
+   
+   <rule id="708382" level="10">
+     <if_sid>4807</if_sid>
+     <field name="eventid">^535$</field>
+     <description>SonicWall: IPsec (ESP) packet dropped; waiting for pending IPsec connection.</description>
+     <group>vpn,vpn-ipsec,debug,debug,esp-connection-drop</group>
+   </rule>
+   
+   <!-- <rule id="708383" level="5"> now used for evnt id 468  -->
+   
+   <rule id="708998" level="3">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^537$</field>
+      <description>SonicWall: Connection Closed.</description>
+      <options>no_email_alert</options>
+      <group>connection_state,network,network-access,connection-traffic,info,connection-closed</group>
+    </rule>
+   
+   <rule id="708384" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">538</field>
+     <description>SonicWall: FTP: Data connection from non default port dropped.</description>
+   </rule>
+   
+   <rule id="708385" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">542</field>
+     <description>SonicWall: PPP Dial-Up: Previous session was connected for %s.</description>
+   </rule>
+   
+   <rule id="708386" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^543$</field>
+     <description>SonicWall: IKE Initiator: Using secondary gateway to negotiate.</description>
+     <group>vpn,vpn-ike,user-activity,info,negotiation-on-second-gw</group>
+   </rule>
+   
+   <rule id="708387" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^544$</field>
+     <description>SonicWall: IKE Initiator drop: VPN tunnel end point does not match configured VPN Policy Bound to scope.</description>
+     <group>vpn,vpn-ike,user-activity,info,initiator-bound-scope-mismatch</group>
+   </rule>
+   
+   <rule id="708388" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^545$</field>
+     <description>SonicWall: IKE Responder drop: VPN tunnel end point does not match configured VPN Policy Bound to scope.</description>
+     <group>vpn,vpn-ike,user-activity,info,responder-bound-scope-mismatch</group>
+   </rule>
+   
+   <rule id="708389" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">546</field>
+     <description>SonicWall: Found Rogue or MitM Access Point.</description>
+   </rule>
+   
+   <rule id="708390" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">548</field>
+     <description>SonicWall: Association Flood from WLAN station.</description>
+   </rule>
+   
+   <rule id="708391" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">549</field>
+     <description>SonicWall: User login failed - Guest service limit reached.</description>
+   </rule>
+   
+   <rule id="708392" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">550</field>
+     <description>SonicWall: User Session Quota Expired.</description>
+   </rule>
+   
+   <rule id="708393" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">551</field>
+     <description>SonicWall: Guest Account Timeout.</description>
+   </rule>
+   
+   <rule id="708394" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">557</field>
+     <description>SonicWall: Guest login denied. Guest '%s' is already logged in. Please try again later.</description>
+   </rule>
+   
+   <rule id="708395" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">558</field>
+     <description>SonicWall: Guest account '%s' created.</description>
+   </rule>
+   
+   <rule id="708396" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">559</field>
+     <description>SonicWall: Guest account '%s' deleted.</description>
+   </rule>
+   
+   <rule id="708397" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">560</field>
+     <description>SonicWall: Guest account '%s' disabled.</description>
+   </rule>
+   
+   <rule id="708398" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">561</field>
+     <description>SonicWall: Guest account '%s' re-enabled.</description>
+   </rule>
+   
+   <rule id="708399" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">562</field>
+     <description>SonicWall: Guest account '%s' pruned.</description>
+   </rule>
+   
+   <rule id="708400" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">564</field>
+     <description>SonicWall: Guest Idle Timeout.</description>
+   </rule>
+   
+   <rule id="708401" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">565</field>
+     <description>SonicWall: Interface %s Link Is Up.</description>
+   </rule>
+   
+   <rule id="708402" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">566</field>
+     <description>SonicWall: Interface %s Link Is Down.</description>
+   </rule>
+   
+   <rule id="708403" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">567</field>
+     <description>SonicWall: Interface IP Assignment changed: Shutting down %s.</description>
+   </rule>
+   
+   <rule id="708404" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">568</field>
+     <description>SonicWall: Interface IP Assignment : Binding and initializing %s.</description>
+   </rule>
+   
+   <rule id="708405" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">569</field>
+     <description>SonicWall: Network for interface %s overlaps with another interface..</description>
+   </rule>
+   
+   <rule id="708406" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">570</field>
+     <description>SonicWall: Please connect interface %s to another network to function properly.</description>
+   </rule>
+   
+   <rule id="708407" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">573</field>
+     <description>SonicWall: The preferences file is too large to be saved in available flash memory.</description>
+   </rule>
+   
+   <rule id="708408" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">574</field>
+     <description>SonicWall: All preference values have been set to factory default values.</description>
+   </rule>
+   
+   <rule id="708409" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">575</field>
+     <description>SonicWall: Voltages Out of Tolerance.</description>
+   </rule>
+   
+   <rule id="708410" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">576</field>
+     <description>SonicWall: Fan Failure.</description>
+   </rule>
+   
+   <rule id="708411" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">577</field>
+     <description>SonicWall: Thermal Yellow.</description>
+   </rule>
+   
+   <rule id="708412" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">578</field>
+     <description>SonicWall: Thermal Red.</description>
+   </rule>
+   
+   <rule id="708413" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">578</field>
+     <description>SonicWall: Thermal Red.</description>
+   </rule>
+   
+   <rule id="708414" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">579</field>
+     <description>SonicWall: Thermal Red Timer Exceeded.</description>
+   </rule>
+   
+   <rule id="708415" level="5">
+     <if_sid>4801</if_sid>
+     <field name="eventid">580</field>
+     <description>SonicWall: TCP SYN/FIN packet dropped.</description>
+   </rule>
+   
+   <rule id="708416" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">581</field>
+     <description>SonicWall: WLB Spill-over started, configured threshold exceeded.</description>
+   </rule>
+   
+   <rule id="708417" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">582</field>
+     <description>SonicWall: WLB Spill-over stopped.</description>
+   </rule>
+   
+   <rule id="708418" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">583</field>
+     <description>SonicWall: User login disabled from %s.</description>
+   </rule>
+   
+   <rule id="708419" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">584</field>
+     <description>SonicWall: WLB Failover in progress.</description>
+   </rule>
+   
+   <rule id="708420" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">585</field>
+     <description>SonicWall: WLB Resource is now available.</description>
+   </rule>
+   
+   <rule id="708421" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">586</field>
+     <description>SonicWall: WLB Resource failed.</description>
+   </rule>
+   
+   <rule id="708422" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^587$</field>
+     <description>SonicWall: Header verification failed.</description>
+     <group>vpn,vpn-ike,user-activity,warning,header-verficiation-failed</group>
+   </rule>
+   
+   <rule id="708423" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">588</field>
+     <description>SonicWall: Received DHCP offer packet has errors.</description>
+   </rule>
+   
+   <rule id="708424" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">589</field>
+     <description>SonicWall: Received response packet for DHCP request has errors.</description>
+   </rule>
+   
+   <rule id="708425" level="10">
+     <if_sid>4805</if_sid>
+     <field name="eventid">590</field>
+     <description>SonicWall: IP type %s packet dropped.</description>
+   </rule>
+   
+   <rule id="708426" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">591</field>
+     <description>SonicWall: Maximum sequential failed dial attempts (10) to a single dial-up number: %s.</description>
+   </rule>
+   
+   <rule id="708427" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">592</field>
+     <description>SonicWall: Regulatory requirements prohibit %s from being re-dialed for 30 minutes.</description>
+   </rule>
+   
+   <rule id="708428" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">593</field>
+     <description>SonicWall: Received PPPoE Active Discovery Offer.</description>
+   </rule>
+   
+   <rule id="708429" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">594</field>
+     <description>SonicWall: Received PPPoE Active Discovery Session_confirmation.</description>
+   </rule>
+   
+   <rule id="708430" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">595</field>
+     <description>SonicWall: Sending PPPoE Active Discovery Request.</description>
+   </rule>
+   
+   <rule id="708431" level="10">
+     <if_sid>4807</if_sid>
+     <field name="eventid">596</field>
+     <description>SonicWall: PPTP decode failure.</description>
+   </rule>
+   
+   <rule id="708432" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">597</field>
+     <description>SonicWall: ICMP packet allowed.</description>
+   </rule>
+   
+   <rule id="708433" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">598</field>
+     <description>SonicWall: ICMP packet allowed.</description>
+   </rule>
+   
+   <rule id="708434" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">599</field>
+     <description>SonicWall: System Restart: System Error: ERROR 655: Stack Margin Reboot: Diagnostic Code G.</description>
+   </rule>
+
+   <rule id="708435" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">600</field>
+     <description>SonicWall: System Restart: System Error: ERROR 656: Delete Reboot: Diagnostic Code H.</description>
+   </rule>
+   
+   <rule id="708436" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">601</field>
+     <description>SonicWall: System Restart: System Error: ERROR 657: Delete Stack Reboot: Diagnostic Code I.</description>
+   </rule>
+   
+   <rule id="708437" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">602</field>
+     <description>SonicWall: DNS packet allowed.</description>
+   </rule>
+   
+   <rule id="708438" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">^603$</field>
+     <description>SonicWall: Adding L2TP IP pool Address object Failed.</description>
+     <group>vpn,lt2t-server,system-error,error,661,problem-adding-l2tp-ip-pool</group>
+   </rule>
+   
+   <rule id="708439" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^605$</field>
+     <description>SonicWall: Received unencrypted packet in crypto active state.</description>
+     <group>vpn,vpn-ike,user-activity,warning,received-unencrypted-packet</group>
+   </rule>
+   
+   <rule id="708440" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">606</field>
+     <description>SonicWall: Spank attack multicast packet dropped.</description>
+   </rule>
+   
+   <rule id="708441" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">607</field>
+     <description>SonicWall: Received ISAKMP packet destined to port %s.</description>
+   </rule>
+   
+   <rule id="708442" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">608</field>
+     <description>SonicWall: IPS Detection Alert: %s.</description>
+   </rule>
+   
+   <rule id="708443" level="10">
+     <if_sid>4801</if_sid>
+     <field name="eventid">609</field>
+     <description>SonicWall: IPS Prevention Alert: %s.</description>
+   </rule>
+   
+   <rule id="708444" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">610</field>
+     <description>SonicWall: Crypto Hardware AES test failed.</description>
+   </rule>
+   
+   <rule id="708445" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">614</field>
+     <description>SonicWall: Received IPS Alert: Your Intrusion Prevention (IDP) subscription has expired.</description>
+   </rule>
+   
+   <rule id="708446" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">615</field>
+     <description>SonicWall: WLAN client null probing.</description>
+   </rule>
+   
+   <rule id="708447" level="10">
+     <if_sid>4803</if_sid>
+     <field name="eventid">616</field>
+     <description>SonicWall: Payload processing failed.</description>
+   </rule>
+   
+   <rule id="708448" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">617</field>
+     <description>SonicWall: WLAN not in AP mode, DHCP server will not provide lease to clients on WLAN.</description>
+   </rule>
+   
+   <rule id="708449" level="10">
+     <if_sid>4807</if_sid>
+     <field name="eventid">618</field>
+     <description>SonicWall: BOOTP server response relayed to remote device.</description>
+   </rule>
+   
+   <rule id="708450" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">619</field>
+     <description>SonicWall: BOOTP Client IP address on LAN conflicts with remote device IP, deleting IP address from remote table.</description>
+   </rule>
+   
+   <rule id="708451" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">620</field>
+     <description>SonicWall: BOOTP reply relayed to local device.</description>
+   </rule>
+   
+   <rule id="708452" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">622</field>
+     <description>SonicWall: VoIP Call Connected.</description>
+   </rule>
+   
+   <rule id="708453" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">623</field>
+     <description>SonicWall: VoIP Call Disconnected.</description>
+   </rule>
+   
+   <rule id="708454" level="10">
+     <if_sid>4807</if_sid>
+     <field name="eventid">624</field>
+     <description>SonicWall: H.323/RAS Admission Reject.</description>
+   </rule>
+   
+   <rule id="708455" level="10">
+     <if_sid>4807</if_sid>
+     <field name="eventid">625</field>
+     <description>SonicWall: H.323/RAS Admission Confirm.</description>
+   </rule>
+   
+   <rule id="708456" level="10">
+     <if_sid>4807</if_sid>
+     <field name="eventid">626</field>
+     <description>SonicWall: H.323/RAS Admission Request.</description>
+   </rule>
+   
+   <rule id="708457" level="10">
+     <if_sid>4807</if_sid>
+     <field name="eventid">627</field>
+     <description>SonicWall: H.323/RAS Bandwidth Reject.</description>
+   </rule>
+   
+   <rule id="708458" level="10">
+     <if_sid>4807</if_sid>
+     <field name="eventid">628</field>
+     <description>SonicWall: H.323/RAS Disengage Confirm.</description>
+   </rule>
+   
+   <rule id="708459" level="10">
+     <if_sid>4807</if_sid>
+     <field name="eventid">629</field>
+     <description>SonicWall: H.323/RAS Gatekeeper Reject.</description>
+   </rule>
+   
+   <rule id="708460" level="10">
+     <if_sid>4807</if_sid>
+     <field name="eventid">630</field>
+     <description>SonicWall: H.323/RAS Location Confirm.</description>
+   </rule>
+   
+   <rule id="708461" level="10">
+     <if_sid>4807</if_sid>
+     <field name="eventid">^631$</field>
+     <description>SonicWall: H.323/RAS Location Reject.</description>
+   </rule>
+   
+   <rule id="708462" level="10">
+     <if_sid>4807</if_sid>
+     <field name="eventid">^632$</field>
+     <description>SonicWall: H.323/RAS Registration Reject.</description>
+   </rule>
+   
+   <rule id="708463" level="10">
+     <if_sid>4807</if_sid>
+     <field name="eventid">^633$</field>
+     <description>SonicWall: H.323/H.225 Setup.</description>
+   </rule>
+   
+   <rule id="708464" level="10">
+     <if_sid>4807</if_sid>
+     <field name="eventid">^634$</field>
+     <description>SonicWall: H.323/H.225 Connect.</description>
+   </rule>
+   
+   <rule id="708465" level="10">
+     <if_sid>4807</if_sid>
+     <field name="eventid">^635$</field>
+     <description>SonicWall: H.323/H.245 Address.</description>
+   </rule>
+   
+   <rule id="708466" level="10">
+     <if_sid>4807</if_sid>
+     <field name="eventid">^636$</field>
+     <description>SonicWall: H.323/H.245 End Session Address.</description>
+   </rule>
+   
+   <rule id="708467" level="10">
+     <if_sid>4807</if_sid>
+     <field name="eventid">^637$</field>
+     <description>SonicWall: VoIP %s Endpoint added.</description>
+   </rule>
+   
+   <rule id="708468" level="10">
+     <if_sid>4807</if_sid>
+     <field name="eventid">^638$</field>
+     <description>SonicWall: VoIP %s Endpoint removed.</description>
+   </rule>
+   
+   <rule id="708469" level="10">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^639$</field>
+     <description>SonicWall: VoIP %s Endpoint not added - configured 'public' endpoint limit reached.</description>
+   </rule>
+   
+   <rule id="708470" level="10">
+     <if_sid>4807</if_sid>
+     <field name="eventid">^640$</field>
+     <description>SonicWall: H.323/RAS Unknown Message Response.</description>
+   </rule>
+   
+   <rule id="708471" level="10">
+     <if_sid>4807</if_sid>
+     <field name="eventid">^641$</field>
+     <description>SonicWall: H.323/RAS Unknown Message Response.</description>
+     <group>voip,h-323,voip,debug,h-232-ras-unknown-message-response</group>
+   </rule>
+   
+   <!-- Adjusting Rule IDs to jump over numbers when the SonicWall Event IDs jump as well -->
+   
+   <rule id="708761" level="5">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^931$</field>
+     <description>SonicWall: IKE Responder: Remote party Timeout - Retransmitting IKE Request.</description>
+     <group>vpn,vpn-ike,user-activity,info,responder-peer-timeout-retransmitting</group>
+   </rule>
+   
+   <rule id="708776" level="5">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^946$</field>
+     <description>SonicWall: IKEv2 Responder: Received CREATE_CHILD_SA Request.</description>
+     <group>vpn,vpn-ike2,user-activity,info,responder-received-create_child_sa-request</group>
+   </rule>
+   
+   <rule id="708805" level="5">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^975$</field>
+     <description>SonicWall: IKEv2 Initiator: Received CREATE_CHILD_SA response.</description>
+     <group>vpn,vpn-ikev2,user-activity,info,negotiation-completed</group>
+   </rule>
+   
+   <rule id="708808" level="5">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^978$</field>
+     <description>SonicWall: IKEv2 negotiation complete.</description>
+     <group>vpn,vpn-ikev2,user-activity,info,negotiation-completed</group>
+   </rule>
+   
+   <rule id="708813" level="5">
+     <if_sid>4804</if_sid>
+     <field name="eventid">^983$</field>
+     <description>SonicWall: IKEv2 Received notify error payload</description>
+     <group>vpn,vpn-ikev2,user-activity,warning,received-notify-error-payload,</group>
+   </rule>
+   
+   <rule id="708824" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^994$</field>
+     <description>SonicWall: Configuration mode administration session started.</description>
+   </rule>
+   
+   <rule id="708825" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^995$</field>
+     <description>SonicWall: Configuration mode administration session ended.</description>
+     <group>users,authentication-access,user-activity,info,configuration-mode-administration-ended</group>
+   </rule>
+   
+   <rule id="708826" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^996$</field>
+     <description>SonicWall: Read-only mode GUI administration session started.</description>
+     <group>users,authentication-access,user-activity,info,read-only-mode-gui-administration-session-started</group>
+   </rule>
+   
+   <rule id="708827" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^997$</field>
+     <description>SonicWall: Non-config mode GUI administration session started.</description>
+     <group>users,authentication-access,user-activity,info,non-config-mode-gui-administration-session-started</group>
+   </rule>
+   
+   <rule id="708828" level="10">
+     <if_sid>4806</if_sid>
+     <field name="eventid">^998$</field>
+     <description>SonicWall: GUI administration session ended.</description>
+     <group>users,authentication-access,user-activity,info,gui-administration-session-end</group>
+   </rule>
+   
+   <rule id="708909" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^1079$</field>
+      <match negate="yes">is not allowed by access control</match>
+      <description>SonicWall: %s</description>
+      <group>ssl-vpn,general,info,ssl-vpn</group>
+   </rule>
+
+   <rule id="708910" level="10">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^1080$</field>
+      <description>SonicWall: SSL VPN zone user logon allowed</description>
+      <group>users,authentication-access,info,successful-ssl-vpn-user-logon</group>
+   </rule>
+
+   <rule id="708940" level="5">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^1110$</field>
+      <description>SonicWall: Assigned IP address %s</description>
+      <group>network,dhcp-server,info,assigned-ip-address</group>
+   </rule>
+   
+   <rule id="708941" level="5">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^1111$</field>
+      <description>SonicWall: Released IP address %s</description>
+      <group>network,dhcp-server,info,released-ip-address</group>
+   </rule>
+   
+   <rule id="708988" level="8">
+      <if_sid>4801</if_sid>
+      <field name="eventid">^1198$</field>
+      <description>SonicWall: Initiator from country blocked: %s.</description>
+    </rule>
+
+    <rule id="708987" level="8">
+      <if_sid>4801</if_sid>
+      <field name="eventid">^1199$</field>
+      <description>SonicWall: Responder from country blocked: %s.</description>
+    </rule>
+    
+    <rule id="709056" level="8">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^1226$</field>
+      <description>SonicWall: HTTPS Handshake: %s.</description>
+      <group>network, network-access,info,https-handshake</group>
+    </rule>
+    
+    <rule id="709135" level="5">
+      <if_sid>4804</if_sid>
+      <field name="eventid">^1305$</field>
+      <description>SonicWall: IKE Responder: VPN Policy for IKE ID not found.</description>
+      <group>vpn,vpn-ikev2,user-activity,warning,</group>
+    </rule>
+    
+    <rule id="709154" level="8">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^1324$</field>
+      <description>SonicWall: IKEv2 Received Dead Peer Detection Request.</description>
+      <group>vpn,vpn-ikev2,user-activity,info,received-dead-peer-detection</group>
+    </rule>
+    
+    <rule id="709156" level="8">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^1326$</field>
+      <description>SonicWall: IKEv2 Send Dead Peer Detection Request.</description>
+      <group>vpn,vpn-ikev2,user-activity,info,send-dead-peer-detection</group>
+    </rule>
+    
+    <rule id="709157" level="8">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^1327$</field>
+      <description>SonicWall: IKEv2 Send Dead Peer Detection Response.</description>
+      <group>vpn,vpn-ikev2,user-activity,info,send-dead-peer-detection-response</group>
+    </rule>
+    
+    <rule id="709212" level="8">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^1382$</field>
+      <description>SonicWall: Configuration succeeded: %s.</description>
+      <group>log,configuration-auditing,user-activity,info,5609,configuration-change-succeeded</group>
+    </rule>
+
+    <rule id="709261" level="8">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^1431$</field>
+      <description>SonicWall: Configuration changed: %s.</description>
+      <group>network,icmp,info,icmpv6-packets-received</group>
+    </rule>
+    
+    <rule id="709262" level="12">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^1432$</field>
+      <description>SonicWall: Configuration changed: %s.</description>
+      <group>system,settings,info,configuration-change</group>
+    </rule>
+    
+    <rule id="709324" level="8">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^1494$</field>
+      <description>SonicWall: System Setting Exported.</description>
+      <group>system,settings,info,system-setting-exported</group>
+    </rule>
+    
+    <rule id="709367" level="8">
+      <if_sid>4806</if_sid>
+      <field name="eventid">^1573$</field>
+      <description>SonicWall: IPv6 packet dropped due to IPv6 traffic processing is disabled on this firewall.</description>
+      <group>firewall-settings,advanced,debug,info,drop-all-ipv6-traffic</group>
+    </rule>
+    
+    <rule id="709457" level="13">
+        <if_sid>4800</if_sid>
+        <description>SonicWall: no rule for m=.</description>
+    </rule>
+
+</group>

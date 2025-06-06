@@ -1,0 +1,12 @@
+<!-- Oct 18 13:17:45 BEN-NOR-SIRUS1TB datto.audit[836940]: CEF:0|Datto|S4X1|4.29.2|BAK2000|Transferring data, 0/-1 [ 0 ]   Timeout Countdown: 20-900|0|start=1697649465 act=Backup cnt=234 dvc=192.168.0.11 dvchost=192.168.0.11
+-->
+<decoder name="datto">
+  <regex>\<\d+>(\d+-\d+-\d+\w+\d+:\d+:\d+.\d+\p\d+:\d+) </regex>
+  <order>log_timestamp</order>
+</decoder>
+  <decoder name="datto">
+    <parent>datto</parent>
+    <regex>^(\d+)\|(\.*)\  |(\.*)\   |(\.*)\        |(\.*)\ |(\.*)\                                       |(\.*)\|</regex>
+    <!--     CEF:0|ExtraHop|Reveal(x)|7.8           |1      |Daily Summary: Credentials Received over HTTP|6     | -->
+    <order>CEFversion,Vendor,Product ,ProductVersion,EventID,EventName                                    ,EventSeverity</order>
+  </decoder>

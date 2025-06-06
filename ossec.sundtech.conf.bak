@@ -1,0 +1,563 @@
+<!--
+  Wazuh - Manager - Default configuration for centos 8
+  More info at: https://documentation.wazuh.com
+  Mailing list: https://groups.google.com/forum/#!forum/wazuh
+-->
+
+<ossec_config>
+  <global>
+    <jsonout_output>yes</jsonout_output>
+    <alerts_log>yes</alerts_log>
+    <logall>no</logall>
+    <logall_json>no</logall_json>
+    <email_notification>yes</email_notification>
+    <smtp_server>192.168.1.21</smtp_server>
+    <email_from>eric@sundtechnologies.com</email_from>
+    <email_to>eric@sundtechnologies.com</email_to>
+    <email_maxperhour>1000000</email_maxperhour>
+    <email_log_source>alerts.log</email_log_source>
+    <agents_disconnection_time>10m</agents_disconnection_time>
+    <agents_disconnection_alert_time>0</agents_disconnection_alert_time>
+  </global>
+
+  <alerts>
+    <log_alert_level>3</log_alert_level>
+    <email_alert_level>10</email_alert_level>
+  </alerts>
+
+  <email_alerts>
+      <email_to>eric@sundtechnologies.com</email_to>
+      <event_location>/var/logs/openvpn$</event_location>
+  </email_alerts>
+
+  <email_alerts>
+    <email_to>eric@sundtechnologies.com</email_to>
+    <group>vulnerability-detector</group>
+    <do_not_delay />
+    <do_not_group />
+  </email_alerts>
+
+
+  <!-- Choose between "plain", "json", or "plain,json" for the format of internal logs -->
+  <logging>
+    <log_format>plain</log_format>
+  </logging>
+
+  <remote>
+    <connection>secure</connection>
+    <port>1514</port>
+    <protocol>tcp</protocol>
+    <queue_size>131072</queue_size>
+  </remote>
+  
+  <remote>
+    <connection>syslog</connection>
+    <port>514</port>
+    <protocol>tcp</protocol>
+    <allowed-ips>192.168.1.0/24</allowed-ips>
+    <local_ip>192.168.1.21</local_ip>
+  </remote>
+
+  <remote>
+    <connection>syslog</connection>
+    <port>514</port>
+    <protocol>udp</protocol>
+    <allowed-ips>192.168.1.0/24</allowed-ips>
+    <local_ip>192.168.1.21</local_ip>
+  </remote>
+
+  <!-- Policy monitoring -->
+  <rootcheck>
+    <disabled>no</disabled>
+    <check_files>yes</check_files>
+    <check_trojans>yes</check_trojans>
+    <check_dev>yes</check_dev>
+    <check_sys>yes</check_sys>
+    <check_pids>yes</check_pids>
+    <check_ports>yes</check_ports>
+    <check_if>yes</check_if>
+
+    <!-- Frequency that rootcheck is executed - every 12 hours -->
+    <frequency>43200</frequency>
+
+    <rootkit_files>etc/rootcheck/rootkit_files.txt</rootkit_files>
+    <rootkit_trojans>etc/rootcheck/rootkit_trojans.txt</rootkit_trojans>
+
+    <skip_nfs>yes</skip_nfs>
+  </rootcheck>
+
+  <wodle name="cis-cat">
+    <disabled>yes</disabled>
+    <timeout>1800</timeout>
+    <interval>1d</interval>
+    <scan-on-start>yes</scan-on-start>
+    <java_path>wodles/java</java_path>
+    <ciscat_path>wodles/ciscat</ciscat_path>
+  </wodle>
+
+  <!-- Osquery integration -->
+  <wodle name="osquery">
+    <disabled>no</disabled>
+    <run_daemon>yes</run_daemon>
+    <bin_path>/usr/bin</bin_path>
+    <log_path>/var/log/osquery/osqueryd.results.log</log_path>
+    <config_path>/etc/osquery/osquery.conf</config_path>
+    <add_labels>no</add_labels>
+  </wodle>
+
+ <office365>
+    <enabled>yes</enabled>
+    <interval>1m</interval>
+    <curl_max_size>1M</curl_max_size>
+    <only_future_events>yes</only_future_events>
+    <api_auth>
+        <tenant_id>73345d1a-b336-48b3-b5e1-09b622c2de6c</tenant_id>
+        <client_id>5a66aa61-0119-4f4c-9a9f-47e00ade1c95</client_id>
+        <!-- <client_secret>7WA8Q~l~ov3fe_pFu8dOCZJrM4X0aZLlzoDVZclv</client_secret> -->
+        <client_secret>pZM8Q~4atqYiPFc2iS5C4l_y~f6pdhl-Y~MCcbDL</client_secret>
+        <!-- this is the secret VALUE, not the Secret ID -->
+    </api_auth>
+    <subscriptions>
+        <subscription>Audit.AzureActiveDirectory</subscription>
+        <subscription>Audit.Exchange</subscription>
+        <subscription>Audit.SharePoint</subscription>
+        <subscription>Audit.General</subscription>
+        <subscription>DLP.All</subscription>
+    </subscriptions>
+  </office365>
+
+  <integration>
+    <name>custom-misp</name>
+    <group>sysmon_event1,sysmon_event3,sysmon_event6,sysmon_event7,sysmon_event_15,sysmon_event_22,syscheck</group>
+    <alert_format>json</alert_format>
+  </integration>
+
+  <integration>
+    <name>custom-email.py</name>
+    <alert_format>json</alert_format>
+  </integration>
+
+  <integration>
+    <name>custom-email-alerts</name>
+    <hook_url>eric@sundtechnologies.com</hook_url>
+    <rule_id>19015,19014,19013,19012</rule_id>
+    <alert_format>json</alert_format>
+  </integration>
+  
+  <reports>
+    <category>syscheck</category>
+    <title>Daily Sund report: File changes</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <category>osquery</category>
+    <title>Daily Sund report: osquery</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <category>/var/log/secure</category>
+    <title>Daily Sund report: osquery</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+  
+  <reports>
+    <category>office365</category>
+    <title>Daily Sund report: office365</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+  
+  <reports>
+    <level>10</level>
+    <title>Daily Sund report: Alerts with level higher than 10</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <category>authentication_success</category>
+    <title>Daily Sund report: Successful logins</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <category>authentication_failure</category>
+    <title>Daily Sund report: Successful logins</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <category>error_log</category>
+    <title>Daily Sund report: Successful logins</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <rule>708987</rule>
+    <title>Daily Sund report: Rule 708987-Responder From Country Blocked</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+  
+  <reports>
+    <rule>708042</rule>
+    <title>Daily Sund report: Rule 708042 Possible port scan</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <rule>708043</rule>
+    <title>Daily Sund report: Rule 708043 Probable port scan</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <rule>708988</rule>
+    <title>Daily Sund report: Rule 708988-Initiator From Country Blocked</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <rule>708023</rule>
+    <title>Daily Sund report: Rule 708023-</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <category>system_error</category>
+    <title>Daily Sund report: Category system_error</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <category>windows-server</category>
+    <title>Daily Sund report: Category windows-server</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+  
+  <reports>
+    <group>vpn</group>
+    <title>Daily Sund report: VPN Rules triggered</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+  
+    <reports>
+    <category>vulnerability-detector</category>
+    <title>Daily Sund report: vulnerability-detector</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <group>sca</group>
+    <title>Daily Sund report: sca</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+ 
+  <!-- System inventory -->
+  <wodle name="syscollector">
+    <disabled>no</disabled>
+    <interval>1h</interval>
+    <scan_on_start>yes</scan_on_start>
+    <hardware>yes</hardware>
+    <os>yes</os>
+    <network>yes</network>
+    <packages>yes</packages>
+    <ports all="yes">yes</ports>
+    <processes>yes</processes>
+
+    <!-- Database synchronization settings -->
+    <synchronization>
+      <max_eps>10</max_eps>
+    </synchronization>
+  </wodle>
+
+  <sca>
+    <enabled>yes</enabled>
+    <scan_on_start>yes</scan_on_start>
+    <interval>12h</interval>
+    <skip_nfs>yes</skip_nfs>
+  </sca>
+
+  <vulnerability-detector>
+    <enabled>yes</enabled>
+    <interval>5m</interval>
+    <min_full_scan_interval>3h</min_full_scan_interval>
+    <run_on_start>yes</run_on_start>
+
+    <!-- Ubuntu OS vulnerabilities -->
+    <provider name="canonical">
+      <enabled>yes</enabled>
+      <os>trusty</os>
+      <os>xenial</os>
+      <os>bionic</os>
+      <os>focal</os>
+      <os>jammy</os>
+      <update_interval>1h</update_interval>
+    </provider>
+
+    <!-- Debian OS vulnerabilities -->
+    <provider name="debian">
+      <enabled>yes</enabled>
+      <!-- <os>stretch</os>  -->
+      <os>buster</os>
+      <os>bullseye</os>
+      <update_interval>1h</update_interval>
+    </provider>
+
+    <!-- RedHat OS vulnerabilities -->
+    <provider name="redhat">
+      <enabled>yes</enabled>
+      <os>5</os>
+      <os>6</os>
+      <os>7</os>
+      <os>8</os>
+      <os>9</os>
+      <update_interval>1h</update_interval>
+    </provider>
+
+    <!-- Amazon Linux OS vulnerabilities -->
+    <provider name="alas">
+      <enabled>yes</enabled>
+      <os>amazon-linux</os>
+      <os>amazon-linux-2</os>
+      <update_interval>1h</update_interval>
+    </provider>
+
+    <!-- Arch OS vulnerabilities -->
+    <provider name="arch">
+      <enabled>yes</enabled>
+      <update_interval>1h</update_interval>
+    </provider>
+
+    <!-- Windows OS vulnerabilities -->
+    <provider name="msu">
+      <enabled>yes</enabled>
+      <update_interval>1h</update_interval>
+    </provider>
+
+    <!-- Aggregate vulnerabilities -->
+    <provider name="nvd">
+      <enabled>yes</enabled>
+      <!-- <update_from_year>2010</update_from_year> -->
+      <update_interval>1h</update_interval>
+    </provider>
+
+  </vulnerability-detector>
+
+  <!-- File integrity monitoring -->
+  <syscheck>
+    <disabled>no</disabled>
+
+    <!-- Frequency that syscheck is executed default every 12 hours -->
+    <frequency>43200</frequency>
+
+    <scan_on_start>yes</scan_on_start>
+
+    <!-- Generate alert when new file detected -->
+    <alert_new_files>yes</alert_new_files>
+
+    <!-- Don't ignore files that change more than 'frequency' times -->
+    <auto_ignore frequency="10" timeframe="3600">no</auto_ignore>
+
+    <!-- Directories to check  (perform all possible verifications) -->
+    <directories>/etc,/usr/bin,/usr/sbin</directories>
+    <directories>/bin,/sbin,/boot</directories>
+
+    <!-- Files/directories to ignore -->
+    <ignore>/etc/mtab</ignore>
+    <ignore>/etc/hosts.deny</ignore>
+    <ignore>/etc/mail/statistics</ignore>
+    <ignore>/etc/random-seed</ignore>
+    <ignore>/etc/random.seed</ignore>
+    <ignore>/etc/adjtime</ignore>
+    <ignore>/etc/httpd/logs</ignore>
+    <ignore>/etc/utmpx</ignore>
+    <ignore>/etc/wtmpx</ignore>
+    <ignore>/etc/cups/certs</ignore>
+    <ignore>/etc/dumpdates</ignore>
+    <ignore>/etc/svc/volatile</ignore>
+
+    <!-- File types to ignore -->
+    <ignore type="sregex">.log$|.swp$</ignore>
+
+    <!-- Check the file, but never compute the diff -->
+    <nodiff>/etc/ssl/private.key</nodiff>
+
+    <skip_nfs>yes</skip_nfs>
+    <skip_dev>yes</skip_dev>
+    <skip_proc>yes</skip_proc>
+    <skip_sys>yes</skip_sys>
+
+    <!-- Nice value for Syscheck process -->
+    <process_priority>10</process_priority>
+
+    <!-- Maximum output throughput -->
+    <max_eps>100</max_eps>
+
+    <!-- Database synchronization settings -->
+    <synchronization>
+      <enabled>yes</enabled>
+      <interval>5m</interval>
+      <max_interval>1h</max_interval>
+      <max_eps>10</max_eps>
+    </synchronization>
+  </syscheck>
+
+  <!-- Active response -->
+  <global>
+    <white_list>127.0.0.1</white_list>
+    <white_list>^localhost.localdomain$</white_list>
+    <white_list>192.168.1.1</white_list>
+    <white_list>1.1.1.2</white_list>
+  </global>
+
+  <command>
+    <name>disable-account</name>
+    <executable>disable-account</executable>
+    <timeout_allowed>yes</timeout_allowed>
+  </command>
+
+  <command>
+    <name>restart-wazuh</name>
+    <executable>restart-wazuh</executable>
+  </command>
+
+  <command>
+    <name>firewall-drop</name>
+    <executable>firewall-drop</executable>
+    <timeout_allowed>yes</timeout_allowed>
+  </command>
+
+  <command>
+    <name>host-deny</name>
+    <executable>host-deny</executable>
+    <timeout_allowed>yes</timeout_allowed>
+  </command>
+
+  <command>
+    <name>route-null</name>
+    <executable>route-null</executable>
+    <timeout_allowed>yes</timeout_allowed>
+  </command>
+
+  <command>
+    <name>win_route-null</name>
+    <executable>route-null.exe</executable>
+    <timeout_allowed>yes</timeout_allowed>
+  </command>
+
+  <command>
+    <name>netsh</name>
+    <executable>netsh.exe</executable>
+    <timeout_allowed>yes</timeout_allowed>
+  </command>
+
+  <!--
+  <active-response>
+    active-response options here
+  </active-response>
+  -->
+
+  <!-- Log analysis -->
+  <localfile>
+    <log_format>command</log_format>
+    <command>df -P</command>
+    <frequency>360</frequency>
+  </localfile>
+
+  <localfile>
+    <log_format>full_command</log_format>
+    <command>netstat -tulpn | sed 's/\([[:alnum:]]\+\)\ \+[[:digit:]]\+\ \+[[:digit:]]\+\ \+\(.*\):\([[:digit:]]*\)\ \+\([0-9\.\:\*]\+\).\+\ \([[:digit:]]*\/[[:alnum:]\-]*\).*/\1 \2 == \3 == \4 \5/' | sort -k 4 -g | sed 's/ == \(.*\) ==/:\1/' | sed 1,2d</command>
+    <alias>netstat listening ports</alias>
+    <frequency>360</frequency>
+  </localfile>
+
+  <localfile>
+    <log_format>full_command</log_format>
+    <command>last -n 20</command>
+    <frequency>360</frequency>
+  </localfile>
+
+  <ruleset>
+    <!-- Default ruleset -->
+    <decoder_dir>ruleset/decoders</decoder_dir>
+    <decoder_exclude>0455-pfsense_decoders.xml</decoder_exclude>
+    <rule_dir>ruleset/rules</rule_dir>
+    <!--   <rule_exclude>0215-policy_rules.xml</rule_exclude>   -->
+    <!-- <rule_exclude>0520-vulnerability-detector_rules.xml</rule_exclude> -->
+    <rule_exclude>0570-sca_rules.xml</rule_exclude>
+    <rule_exclude>0320-clam_av_rules.xml</rule_exclude>
+    <list>etc/lists/audit-keys</list>
+    <list>etc/lists/amazon/aws-eventnames</list>
+    <list>etc/lists/security-eventchannel</list>
+    <list>etc/lists/bash_profile</list>
+    <list>etc/lists/common-ports</list>
+    <list>etc/lists/malicious-powershell</list>
+
+    <!-- User-defined ruleset -->
+    <decoder_dir>etc/decoders</decoder_dir>
+    <rule_dir>etc/rules</rule_dir>
+  </ruleset>
+
+  <rule_test>
+    <enabled>yes</enabled>
+    <threads>1</threads>
+    <max_sessions>64</max_sessions>
+    <session_timeout>15m</session_timeout>
+  </rule_test>
+
+  <!-- Configuration for wazuh-authd -->
+  <auth>
+    <disabled>no</disabled>
+    <port>1515</port>
+    <use_source_ip>no</use_source_ip>
+    <purge>yes</purge>
+    <use_password>no</use_password>
+    <ciphers>HIGH:!ADH:!EXP:!MD5:!RC4:!3DES:!CAMELLIA:@STRENGTH</ciphers>
+    <!-- <ssl_agent_ca></ssl_agent_ca> -->
+    <ssl_verify_host>no</ssl_verify_host>
+    <ssl_manager_cert>etc/sslmanager.cert</ssl_manager_cert>
+    <ssl_manager_key>etc/sslmanager.key</ssl_manager_key>
+    <ssl_auto_negotiate>no</ssl_auto_negotiate>
+  </auth>
+
+  <cluster>
+    <name>wazuh</name>
+    <node_name>node01</node_name>
+    <node_type>master</node_type>
+    <key></key>
+    <port>1516</port>
+    <bind_addr>0.0.0.0</bind_addr>
+    <nodes>
+        <node>NODE_IP</node>
+    </nodes>
+    <hidden>no</hidden>
+    <disabled>yes</disabled>
+  </cluster>
+
+  <localfile>
+    <log_format>audit</log_format>
+    <location>/var/log/audit/audit.log</location>
+  </localfile>
+
+  <localfile>
+    <log_format>syslog</log_format>
+    <location>/var/ossec/logs/active-responses.log</location>
+  </localfile>
+
+  <localfile>
+    <log_format>syslog</log_format>
+    <location>/var/log/messages</location>
+  </localfile>
+
+  <localfile>
+    <log_format>syslog</log_format>
+    <location>/var/log/secure</location>
+  </localfile>
+
+  <localfile>
+    <log_format>syslog</log_format>
+    <location>/var/log/maillog</location>
+  </localfile>
+
+
+</ossec_config>

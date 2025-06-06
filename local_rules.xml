@@ -1,0 +1,97 @@
+<!-- Local rules -->
+
+<!-- Modify it at your will. -->
+<!-- Copyright (C) 2015, Wazuh Inc. -->
+
+<!-- Example -->
+<group name="local,syslog,sshd,">
+
+  <!--
+  Dec 10 01:02:02 host sshd[1234]: Failed none for root from 1.1.1.1 port 1066 ssh2
+  -->
+  <rule id="100001" level="5">
+    <if_sid>5716</if_sid>
+    <srcip>1.1.1.1</srcip>
+    <description>sshd: authentication failed from IP 1.1.1.1.</description>
+    <group>authentication_failed,pci_dss_10.2.4,pci_dss_10.2.5,</group>
+  </rule>
+
+</group>
+
+<group name="Openvpnas">
+  <rule id="100302" level="0" noalert="1">
+    <decoded_as>openvpnas_decoder</decoded_as>
+    <description>OpenVPN access server messages grouped</description>
+  </rule>
+
+  <rule id="100303" level="3">
+    <if_sid>100302</if_sid>
+    <match>Peer Connection Initiated</match>
+    <description>OpenVPN remote connection established</description>
+  </rule>
+</group>
+
+<group name="security_event, windows,">
+
+  <!-- This rule detects DCSync attacks using windows security event on the domain controller -->
+  <rule id="110001" level="12">
+    <if_sid>60103</if_sid>
+    <field name="win.system.eventID">^4662$</field>
+    <field name="win.eventdata.properties" type="pcre2">{1131f6aa-9c07-11d1-f79f-00c04fc2dcd2}|{19195a5b-6da0-11d0-afd3-00c04fd930c9}</field>
+    <options>no_full_log</options>
+    <description>Directory Service Access. Possible DCSync attack</description>
+  </rule>
+
+ <!-- This rule ignores Directory Service Access originating from machine accounts containing $ -->
+ <rule id="110009" level="0">
+    <if_sid>60103</if_sid>
+    <field name="win.system.eventID">^4662$</field>
+    <field name="win.eventdata.properties" type="pcre2">{1131f6aa-9c07-11d1-f79f-00c04fc2dcd2}|{19195a5b-6da0-11d0-afd3-00c04fd930c9}</field>
+    <field name="win.eventdata.SubjectUserName" type="pcre2">\$$</field>
+    <options>no_full_log</options>
+    <description>Ignore all Directory Service Access that is originated from a machine account containing $</description>
+  </rule>
+
+  <!-- This rule detects Keberoasting attacks using windows security event on the domain controller -->
+  <rule id="110002" level="5">
+    <if_sid>60103</if_sid>
+    <field name="win.system.eventID">^4769$</field>
+    <field name="win.eventdata.TicketOptions" type="pcre2">0x40810000</field>
+    <field name="win.eventdata.TicketEncryptionType" type="pcre2">0x17</field>
+    <options>no_full_log</options>
+    <description>Possible Keberoasting attack</description>
+  </rule>
+
+  <!-- This rule detects Golden Ticket attacks using windows security events on the domain controller -->
+  <rule id="110003" level="3">
+    <if_sid>60103</if_sid>
+    <field name="win.system.eventID">^4624$</field>
+    <field name="win.eventdata.LogonGuid" type="pcre2">{00000000-0000-0000-0000-000000000000}</field>
+    <field name="win.eventdata.logonType" type="pcre2">3</field>
+    <options>no_full_log</options>
+    <description>Possible Golden Ticket attack</description>
+  </rule>
+
+  <rule id="710004" level="10">
+    <field name="abuseipdb.source.rule" type="pcre2">^100002$</field>
+    <field name="abuseipdb.abuse_confidence_score" type="pcre2" negate="yes">^0$</field>
+    <description>AbuseIPDB: SSH Authentication failed from a public IP address $(srcip) with $(abuseipdb.abuse_confidence_score)% confidence of abuse.</description>
+    <group>authentication_failed,pci_dss_10.2.4,pci_dss_10.2.5,</group>
+  </rule>
+
+  <rule id="710005" level="14">
+	  <!-- <field name="abuseipdb.source.rule" type="pcre2">^100003$</field> -->
+    <field name="abuseipdb.abuse_confidence_score" type="pcre2" negate="yes">^0$</field>
+    <!-- <description>AbuseIPDB: SSH Authentication succeeded from a public IP address $(srcip) with $(abuseipdb.abuse_confidence_score)% confidence of abuse.</description> -->
+    <description>AbuseIPDB: Public IP address $(srcip) with $(abuseipdb.abuse_confidence_score)% confidence of abuse.</description>
+    <options>alert_by_email</options>
+    <group>authentication_failed,pci_dss_10.2.4,pci_dss_10.2.5,</group>
+  </rule>
+  
+  <rule id="799999" level="13">
+    <description>Sund Catchall:  Check the decoders and rules match on the alert data.</description>
+    <options>alert_by_email</options>
+    <group>sund,</group>
+  </rule>
+
+</group>

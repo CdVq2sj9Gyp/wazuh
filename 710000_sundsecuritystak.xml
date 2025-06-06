@@ -1,0 +1,14 @@
+<group name="abuseipdb,">.
+  <rule id="710004" level="10">
+    <field name="abuseipdb.source.rule" type="pcre2">^708042$</field>
+    <field name="abuseipdb.abuse_confidence_score" type="pcre2" negate="yes">^0$</field>
+    <description>AbuseIPDB: Possible portscan from a public IP address $(srcip) with $(abuseipdb.abuse_confidence_score)% confidence of abuse.</description>
+    <group>portscan,pci_dss_10.2.4,pci_dss_10.2.5,</group>
+  </rule>
+  <rule id="710005" level="14">
+    <field name="abuseipdb.source.rule" type="pcre2">^708043$</field>
+    <field name="abuseipdb.abuse_confidence_score" type="pcre2" negate="yes">^0$</field>
+    <description>AbuseIPDB: Probable port scan from a public IP address $(srcip) with $(abuseipdb.abuse_confidence_score)% confidence of abuse.</description>
+    <group>portscan,pci_dss_10.2.4,pci_dss_10.2.5,</group>
+  </rule>
+</group>
