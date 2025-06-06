@@ -1,0 +1,4 @@
+POST _opendistro/_ism/change_policy/wazuh-*
+{
+  "policy_id": "Delete indices older than 90 days"
+}
