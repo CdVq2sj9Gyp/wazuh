@@ -1,0 +1,191 @@
+<!-- reports -->
+<!-- Last updated 09/11/2024 -->
+
+  <reports>
+    <category>syscheck</category>
+    <title>Daily Potomac Report: File changes</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <category>osquery</category>
+    <title>Daily Potomac Report: osquery</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <category>/var/log/secure</category>
+    <title>Daily Potomac Report: osquery</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <category>office365</category>
+    <title>Daily Potomac Report: office365</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+  
+  <reports>
+    <category>system_error</category>
+    <title>Daily Potomac Report: Category system_error</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <level>10</level>
+    <title>Daily Potomac Report: Alerts with level higher than 10</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <category>authentication_success</category>
+    <title>Daily Potomac Report: Successful logins</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <category>authentication_failed</category>
+    <title>Daily Potomac Report: Failed logins</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <category>error_log</category>
+    <title>Daily Potomac Report: error_log</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+  
+  <reports>
+    <category>windows-server</category>
+    <title>Daily Potomac Report: Category windows-server</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <group>vpn</group>
+    <title>Daily Potomac Report: VPN Rules triggered</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <category>vulnerability-detector</category>
+    <title>Daily Potomac Report: vulnerability-detector</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <group>scheduled-task</group>
+    <title>Daily Potomac report: scheduled task changes</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <group>policy_changed</group>
+    <title>Daily Potomac report: policy_changes</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <group>threat_intel</group>
+    <title>Daily Potomac report: Threat Intelligence</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+  
+   <reports>
+    <rule>700062</rule>
+    <title>Daily Potomac report: Rule 700062-An attempt was made to change an accounts password</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <rule>700063</rule>
+    <title>Daily Potomac report: Rule 700063-An attempt was made to reset an accounts password</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <rule>708042</rule>
+    <title>Daily Potomac Report: Rule 708042 Possible port scan</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <rule>708043</rule>
+    <title>Daily Potomac Report: Rule 708043 Probable port scan</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <rule>708023</rule>
+    <title>Daily Potomac Report: Rule 708023-Pending login timed out</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+  
+  <reports>
+    <rule>708443</rule>
+    <title>Daily Potomac Report: Rule 708443-SonicWall: IPS Rrevention Alert</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+    <showlogs>yes</showlogs>
+  </reports
+  
+  <reports>
+    <rule>708828</rule>
+    <title>Daily Potomac Report: Rule-708828 SonicWall: GUI administration session ended</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <rule>708987</rule>
+    <title>Daily Potomac Report: Rule 708987-Responder From Country Blocked</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+  
+  <reports>
+    <rule>708988</rule>
+    <title>Daily Potomac Report: Rule 708988-Initiator From Country Blocked</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+  
+  <reports>
+    <rule>708009</rule>
+    <title>Daily Potomac report: Rule 708009 - Web site access denied</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+<reports>
+    <rule>708021</rule>
+    <title>Daily HillTop report: Rule 708021 - User logon denied due to bad credentials - password</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <rule>708022</rule>
+    <title>Daily HillTop report: Rule 708022 - User logon denied due to bad credentials - user</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <rule>708379</rule>
+    <title>Daily HillTop report: Rule 708379 - SonicWall: IPsec (ESP) packet dropped</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <rule>708442</rule>
+    <title>Daily HillTop report: Rule 708442 - SonicWall: IPS Detection Alert: %s.</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <rule>708909</rule>
+    <title>Daily HillTop report: Rule 708909 - Sonicwall: catchall</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <reports>
+    <rule>19000,19001,19002,19003,19004,19005,19006,19007,19008,19009,19010,19011,19012,19013,19014,19015</rule>
+    <title>Daily HillTop report: SCA by Rule Number</title>
+    <email_to>eric@sundtechnologies.com</email_to>
+  </reports>
+
+  <!-- End of Reports -->
